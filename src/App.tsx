@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 import "./App.css";
 import { Input } from "@/components/ui/input";
@@ -12,7 +13,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-const apiEndPoint = "http://localhost:3001/";
+const apiEndPoint = import.meta.env.VITE_BACKEND_BASE_URL;
 type Invoice = {
   invoiceNumber: string;
   date: string;
@@ -31,7 +32,7 @@ function App() {
   const loading = isLoading ? "Loading..." : "";
   const showTable = Boolean(invoiceData?.invoiceNumber);
 
-  const handleFileInput = async (event) => {
+  const handleFileInput = async (event: any) => {
     setInvoiceData(defaultInvoice);
 
     const file = event.target.files[0];
