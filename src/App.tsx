@@ -93,6 +93,7 @@ function App() {
           type='file'
           accept='.pdf'
           className='mx-auto'
+          disabled={isLoading}
           onChange={handleFileInput}
         />
       </div>
