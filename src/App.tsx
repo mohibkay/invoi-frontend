@@ -32,7 +32,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
 
   const loading = isLoading ? "Loading..." : "";
-  const showTable = Boolean(invoiceData?.invoiceNumber);
+  const showData = Boolean(invoiceData?.invoiceNumber);
 
   const handleFileInput = async (event: any) => {
     setInvoiceData(defaultInvoice);
@@ -97,7 +97,7 @@ function App() {
       </div>
       <p>{loading}</p>
 
-      {showTable && (
+      {showData && (
         <Table className='mt-20'>
           <TableHeader>
             <TableRow>
@@ -117,9 +117,11 @@ function App() {
           </TableBody>
         </Table>
       )}
-      <Button className='mt-8' onClick={downloadSheet}>
-        Download Invoice in xlsx
-      </Button>
+      {showData && (
+        <Button className='mt-8' onClick={downloadSheet}>
+          Download Invoice in xlsx
+        </Button>
+      )}
     </div>
   );
 }
