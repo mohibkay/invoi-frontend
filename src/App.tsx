@@ -1,17 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
+import xlsx from "json-as-xlsx";
+
 import "./App.css";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Button } from "./components/ui/button";
 
 const apiEndPoint = import.meta.env.VITE_BACKEND_BASE_URL;
 type Invoice = {
@@ -58,6 +60,30 @@ function App() {
     }
   };
 
+  const downloadSheet = () => {
+    const data = [
+      {
+        sheet: "Invoice",
+        columns: [
+          { label: "Invoice", value: "invoice" },
+          { label: "Date", value: "date" },
+          { label: "Amount", value: "amount" },
+        ],
+        content: [
+          {
+            invoice: invoiceData.invoiceNumber,
+            date: invoiceData.date,
+            amount: invoiceData.amount,
+          },
+        ],
+      },
+    ];
+    const settings = {
+      fileName: invoiceData.invoiceNumber,
+    };
+    xlsx(data, settings);
+  };
+
   return (
     <div>
       <h1 className='text-3xl mb-12'>Invoi</h1>
@@ -73,7 +99,6 @@ function App() {
 
       {showTable && (
         <Table className='mt-20'>
-          <TableCaption>Invoice Data</TableCaption>
           <TableHeader>
             <TableRow>
               <TableHead className='text-center'>Invoice Number</TableHead>
@@ -92,6 +117,9 @@ function App() {
           </TableBody>
         </Table>
       )}
+      <Button className='mt-8' onClick={downloadSheet}>
+        Download Invoice in xlsx
+      </Button>
     </div>
   );
 }
