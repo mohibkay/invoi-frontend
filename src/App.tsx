@@ -91,6 +91,7 @@ function App() {
         <Input
           id='file'
           type='file'
+          accept='.pdf'
           className='mx-auto'
           onChange={handleFileInput}
         />
