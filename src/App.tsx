@@ -86,7 +86,7 @@ function App() {
 
   return (
     <div>
-      <h1 className='text-3xl mb-12'>Invoi</h1>
+      <h1 className='text-5xl mb-12'>Invoi</h1>
       <div className='grid w-full mx-auto max-w-sm items-center gap-1.5'>
         <Input
           id='file'
