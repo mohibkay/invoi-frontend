@@ -13,7 +13,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Button } from "./components/ui/button";
+import { Button } from "@/components/ui/button";
+import Spinner from "@/components/utils/spinner";
 
 const apiEndPoint = import.meta.env.VITE_BACKEND_BASE_URL;
 type Invoice = {
@@ -31,7 +32,7 @@ function App() {
   const [invoiceData, setInvoiceData] = useState<Invoice>(defaultInvoice);
   const [isLoading, setIsLoading] = useState(false);
 
-  const loading = isLoading ? "Loading..." : "";
+  const loading = isLoading ? <Spinner /> : "";
   const showData = Boolean(invoiceData?.invoiceNumber);
 
   const handleFileInput = async (event: any) => {
@@ -87,7 +88,7 @@ function App() {
   return (
     <div>
       <h1 className='text-5xl mb-12'>Invoi</h1>
-      <div className='grid w-full mx-auto max-w-sm items-center gap-1.5'>
+      <div className='grid w-full mx-auto max-w-sm items-center gap-1.5 mb-8'>
         <Input
           id='file'
           type='file'
@@ -97,10 +98,11 @@ function App() {
           onChange={handleFileInput}
         />
       </div>
-      <p>{loading}</p>
+
+      <>{loading}</>
 
       {showData && (
-        <Table className='mt-20'>
+        <Table className='mt-12'>
           <TableHeader>
             <TableRow>
               <TableHead className='text-center'>Invoice Number</TableHead>
