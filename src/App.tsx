@@ -92,7 +92,7 @@ function App() {
         <Input
           id='file'
           type='file'
-          accept='.pdf'
+          accept='.pdf, .jpeg, .jpg, .png'
           className='mx-auto'
           disabled={isLoading}
           onChange={handleFileInput}
