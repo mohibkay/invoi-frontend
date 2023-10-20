@@ -4,7 +4,7 @@ import xlsx from "json-as-xlsx";
 
 import "./App.css";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import {
   Table,
   TableBody,
@@ -31,26 +31,22 @@ const defaultInvoice = {
 function App() {
   const [invoiceData, setInvoiceData] = useState<Invoice>(defaultInvoice);
   const [isLoading, setIsLoading] = useState(false);
+  const [docUrl, setDocUrl] = useState("");
 
   const loading = isLoading ? <Spinner /> : "";
   const showData = Boolean(invoiceData?.invoiceNumber);
 
-  const handleFileInput = async (event: any) => {
+  const handleSubmit = async (event: any) => {
+    event.preventDefault();
+    if (!docUrl) return;
     setInvoiceData(defaultInvoice);
-
-    const file = event.target.files[0];
-
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("fileName", file.name);
+    const payload = {
+      docUrl,
+    };
 
     try {
       setIsLoading(true);
-      const response = await axios.post(apiEndPoint, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const response = await axios.post(apiEndPoint, payload);
 
       const { data } = response;
       setInvoiceData(data);
@@ -89,14 +85,20 @@ function App() {
     <div>
       <h1 className='text-5xl mb-12'>Invoi</h1>
       <div className='grid w-full mx-auto max-w-sm items-center gap-1.5 mb-8'>
-        <Input
-          id='file'
-          type='file'
-          accept='.pdf, .jpeg, .jpg, .png'
-          className='mx-auto'
-          disabled={isLoading}
-          onChange={handleFileInput}
-        />
+        <form onSubmit={handleSubmit}>
+          <Input
+            id='file'
+            type='text'
+            className='mx-auto'
+            disabled={isLoading}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setDocUrl(e.target.value)
+            }
+          />
+          <Button type='submit' className='mt-4'>
+            Extract
+          </Button>
+        </form>
       </div>
 
       <>{loading}</>
