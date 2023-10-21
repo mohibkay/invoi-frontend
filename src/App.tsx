@@ -46,8 +46,6 @@ function App() {
     const filename = file.name;
     const filenameWithoutExtension = filename.replace(/\.\w+$/, "");
 
-    console.log(filenameWithoutExtension);
-
     const formData = new FormData();
     formData.append("file", file);
     formData.append("fileName", filename);
@@ -76,12 +74,14 @@ function App() {
         sheet: "Invoice",
         columns: [
           { label: "Invoice", value: "invoice" },
+          { label: "Vendor", value: "vendor" },
           { label: "Date", value: "date" },
           { label: "Amount", value: "amount" },
         ],
         content: [
           {
             invoice: invoiceData.invoiceNumber,
+            vendor: invoiceData.vendor,
             date: invoiceData.date,
             amount: invoiceData.amount,
           },
