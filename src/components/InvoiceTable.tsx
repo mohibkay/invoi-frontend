@@ -34,7 +34,7 @@ const InvoiceTable = ({ invoiceDataArray }: Props) => {
         </TableRow>
       </TableHeader>
       {invoiceDataArray.map((invoiceData) => (
-        <TableBody key={invoiceData.amount}>
+        <TableBody key={invoiceData.id}>
           <TableRow>
             <TableCell className='font-medium'>
               {invoiceData?.invoiceNumber || "Not Found"}

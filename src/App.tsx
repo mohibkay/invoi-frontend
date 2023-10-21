@@ -23,12 +23,14 @@ function App() {
     );
 
   const handleFileInput = async (event: any) => {
-    const file = event.target.files[0];
-    if (!file) return;
-    const filename = file?.name;
+    const { files } = event.target;
+    if (!files || !files.length) return;
+
     const formData = new FormData();
-    formData.append("file", file);
-    formData.append("fileName", filename);
+
+    for (let i = 0; i < files.length; i++) {
+      formData.append(files[i].name, files[i]);
+    }
     try {
       setIsLoading(true);
       const response = await axios.post(apiEndPoint, formData, {
@@ -38,7 +40,7 @@ function App() {
       });
 
       const { data } = response;
-      setInvoiceDataArray([...invoiceDataArray, data.data]);
+      setInvoiceDataArray([...invoiceDataArray, ...data.results]);
     } catch (error) {
       console.error(error);
     } finally {
@@ -70,6 +72,7 @@ function App() {
           disabled={isLoading}
           ref={fileInputRef}
           onChange={handleFileInput}
+          multiple
         />
         <>{uploadMore}</>
       </form>
