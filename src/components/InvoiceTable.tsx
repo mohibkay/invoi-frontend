@@ -19,10 +19,9 @@ const HEADERS = [
 
 interface Props {
   invoiceDataArray: Invoice[];
-  invoiceNo: string;
 }
 
-const InvoiceTable = ({ invoiceDataArray, invoiceNo }: Props) => {
+const InvoiceTable = ({ invoiceDataArray }: Props) => {
   return (
     <Table className='mt-12'>
       <TableHeader>
@@ -38,7 +37,7 @@ const InvoiceTable = ({ invoiceDataArray, invoiceNo }: Props) => {
         <TableBody key={invoiceData.amount}>
           <TableRow>
             <TableCell className='font-medium'>
-              {invoiceData?.invoiceNumber || invoiceNo}
+              {invoiceData?.invoiceNumber || "Not Found"}
             </TableCell>
             <TableCell className='capitalize'>{invoiceData?.vendor}</TableCell>
             <TableCell>{invoiceData?.date}</TableCell>

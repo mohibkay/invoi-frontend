@@ -10,7 +10,6 @@ const apiEndPoint = import.meta.env.VITE_BACKEND_BASE_URL;
 
 function App() {
   const [invoiceDataArray, setInvoiceDataArray] = useState<Invoice[] | []>([]);
-  const [invoiceNo, setInvoiceNo] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -27,7 +26,6 @@ function App() {
     const file = event.target.files[0];
     if (!file) return;
     const filename = file?.name;
-    const filenameWithoutExtension: string = filename?.replace(/\.\w+$/, "");
     const formData = new FormData();
     formData.append("file", file);
     formData.append("fileName", filename);
@@ -41,7 +39,6 @@ function App() {
 
       const { data } = response;
       setInvoiceDataArray([...invoiceDataArray, data.data]);
-      setInvoiceNo(filenameWithoutExtension);
     } catch (error) {
       console.error(error);
     } finally {
@@ -79,12 +76,7 @@ function App() {
 
       <>{loading}</>
 
-      {hasData && (
-        <InvoiceTable
-          invoiceDataArray={invoiceDataArray}
-          invoiceNo={invoiceNo}
-        />
-      )}
+      {hasData && <InvoiceTable invoiceDataArray={invoiceDataArray} />}
     </div>
   );
 }
