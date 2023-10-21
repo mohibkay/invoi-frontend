@@ -11,8 +11,12 @@ export function generateInvoiceFilename(uniqueIdentifier: string) {
   const year = currentDate.getFullYear();
   const month = String(currentDate.getMonth() + 1).padStart(2, "0");
   const day = String(currentDate.getDate()).padStart(2, "0");
-  const filename = `${year}${month}${day}-${uniqueIdentifier}-Invoice`;
-  return filename;
+  const uniqueIdentifierHyphenated = replaceSpaceWithHyphen(uniqueIdentifier);
+  return `${year}${month}${day}-${uniqueIdentifierHyphenated}`;
+}
+
+function replaceSpaceWithHyphen(inputString: string) {
+  return inputString.replace(/\s+/g, "-");
 }
 
 export const downloadSheet = (invoiceData: Invoice) => {
@@ -36,7 +40,9 @@ export const downloadSheet = (invoiceData: Invoice) => {
     },
   ];
   const settings = {
-    fileName: generateInvoiceFilename(invoiceData.invoiceNumber),
+    fileName: generateInvoiceFilename(
+      `${invoiceData.invoiceNumber}-${invoiceData.vendor}`
+    ),
   };
   xlsx(data, settings);
 };
