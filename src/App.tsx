@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import Spinner from "@/components/utils/spinner";
+import { generateInvoiceFilename } from "./lib/utils";
 
 const apiEndPoint = import.meta.env.VITE_BACKEND_BASE_URL;
 type Invoice = {
@@ -88,7 +89,7 @@ function App() {
       },
     ];
     const settings = {
-      fileName: invoiceData.invoiceNumber,
+      fileName: generateInvoiceFilename(invoiceData.invoiceNumber),
     };
     xlsx(data, settings);
   };
@@ -121,6 +122,7 @@ function App() {
               <TableHead className='text-center'>Vendor</TableHead>
               <TableHead className='text-center'>Date</TableHead>
               <TableHead className='text-center'>Amount</TableHead>
+              <TableHead className='text-center'>Download in excel</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -133,14 +135,14 @@ function App() {
               </TableCell>
               <TableCell>{invoiceData?.date}</TableCell>
               <TableCell>{invoiceData?.amount}</TableCell>
+              <TableCell>
+                <Button variant='link' onClick={downloadSheet}>
+                  <img src='excel.svg' className='h-6' alt='excel icon' />
+                </Button>
+              </TableCell>
             </TableRow>
           </TableBody>
         </Table>
-      )}
-      {hasData && (
-        <Button className='mt-8' onClick={downloadSheet}>
-          Download Invoice in xlsx
-        </Button>
       )}
     </div>
   );
