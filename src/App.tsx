@@ -18,6 +18,7 @@ import Spinner from "@/components/utils/spinner";
 
 const apiEndPoint = import.meta.env.VITE_BACKEND_BASE_URL;
 type Invoice = {
+  vendor: string;
   invoiceNumber: string;
   date: string;
   amount: string;
@@ -26,6 +27,7 @@ const defaultInvoice = {
   invoiceNumber: "",
   date: "",
   amount: "",
+  vendor: "",
 };
 
 function App() {
@@ -116,6 +118,7 @@ function App() {
           <TableHeader>
             <TableRow>
               <TableHead className='text-center'>Invoice Number</TableHead>
+              <TableHead className='text-center'>Vendor</TableHead>
               <TableHead className='text-center'>Date</TableHead>
               <TableHead className='text-center'>Amount</TableHead>
             </TableRow>
@@ -124,6 +127,9 @@ function App() {
             <TableRow>
               <TableCell className='font-medium'>
                 {invoiceData?.invoiceNumber || invoiceNo}
+              </TableCell>
+              <TableCell className='capitalize'>
+                {invoiceData?.vendor}
               </TableCell>
               <TableCell>{invoiceData?.date}</TableCell>
               <TableCell>{invoiceData?.amount}</TableCell>
