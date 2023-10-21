@@ -30,19 +30,24 @@ const defaultInvoice = {
 
 function App() {
   const [invoiceData, setInvoiceData] = useState<Invoice>(defaultInvoice);
+  const [invoiceNo, setInvoiceNo] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const loading = isLoading ? <Spinner /> : "";
-  const showData = Boolean(invoiceData?.invoiceNumber);
+  const hasData = Object.values(invoiceData).some((value) => Boolean(value));
 
   const handleFileInput = async (event: any) => {
     setInvoiceData(defaultInvoice);
 
     const file = event.target.files[0];
+    const filename = file.name;
+    const filenameWithoutExtension = filename.replace(/\.\w+$/, "");
+
+    console.log(filenameWithoutExtension);
 
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("fileName", file.name);
+    formData.append("fileName", filename);
 
     try {
       setIsLoading(true);
@@ -53,7 +58,8 @@ function App() {
       });
 
       const { data } = response;
-      setInvoiceData(data);
+      setInvoiceData(data.data);
+      setInvoiceNo(filenameWithoutExtension);
     } catch (error) {
       console.error(error);
     } finally {
@@ -88,20 +94,24 @@ function App() {
   return (
     <div>
       <h1 className='text-5xl mb-12'>Invoi</h1>
-      <div className='grid w-full mx-auto max-w-sm items-center gap-1.5 mb-8'>
+      <form
+        encType='multipart/form-data'
+        className='grid w-full mx-auto max-w-sm items-center gap-1.5 mb-8'
+      >
         <Input
           id='file'
+          name='file'
           type='file'
           accept='.pdf, .jpeg, .jpg, .png'
           className='mx-auto'
           disabled={isLoading}
           onChange={handleFileInput}
         />
-      </div>
+      </form>
 
       <>{loading}</>
 
-      {showData && (
+      {hasData && (
         <Table className='mt-12'>
           <TableHeader>
             <TableRow>
@@ -113,7 +123,7 @@ function App() {
           <TableBody>
             <TableRow>
               <TableCell className='font-medium'>
-                {invoiceData?.invoiceNumber}
+                {invoiceData?.invoiceNumber || invoiceNo}
               </TableCell>
               <TableCell>{invoiceData?.date}</TableCell>
               <TableCell>{invoiceData?.amount}</TableCell>
@@ -121,7 +131,7 @@ function App() {
           </TableBody>
         </Table>
       )}
-      {showData && (
+      {hasData && (
         <Button className='mt-8' onClick={downloadSheet}>
           Download Invoice in xlsx
         </Button>
