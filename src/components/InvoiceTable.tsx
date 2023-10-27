@@ -7,7 +7,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { downloadInvoice, generateExcelFilesForInvoices } from "@/lib/utils";
+import { downloadInvoice } from "@/lib/utils";
 
 const HEADERS = [
   "Invoice Number",
@@ -57,9 +57,6 @@ const InvoiceTable = ({ invoiceDataArray }: Props) => {
           </TableBody>
         ))}
       </Table>
-      <Button onClick={() => generateExcelFilesForInvoices(invoiceDataArray)}>
-        Download All in zip
-      </Button>
     </div>
   );
 };

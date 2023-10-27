@@ -5,8 +5,10 @@ import { Input } from "@/components/ui/input";
 import { useRef, useState } from "react";
 import Spinner from "@/components/utils/spinner";
 import InvoiceTable from "./components/InvoiceTable";
+import { Button } from "./components/ui/button";
+import { exportToCSV, generateAndZipInvoices } from "./lib/utils";
 
-const test = [
+const arrayOfInvoices = [
   {
     id: "6c138a5d-3b2c-49e9-a7fe-c23bbaf98e43",
     amount: "175",
@@ -34,7 +36,7 @@ const apiEndPoint = import.meta.env.VITE_BACKEND_BASE_URL;
 
 function App() {
   const [invoiceDataArray, setInvoiceDataArray] = useState<Invoice[] | []>(
-    test
+    arrayOfInvoices
   );
   console.log("🐬 ~ App ~ invoiceDataArray:", invoiceDataArray);
   const [isLoading, setIsLoading] = useState(false);
@@ -106,7 +108,21 @@ function App() {
 
       <>{loading}</>
 
-      {hasData && <InvoiceTable invoiceDataArray={invoiceDataArray} />}
+      {hasData && (
+        <>
+          <InvoiceTable invoiceDataArray={invoiceDataArray} />
+          <Button onClick={() => generateAndZipInvoices(invoiceDataArray)}>
+            Download All in zip
+          </Button>
+          <Button
+            onClick={() => exportToCSV(invoiceDataArray)}
+            variant='outline'
+            className='ml-4'
+          >
+            Download All in one excel
+          </Button>
+        </>
+      )}
     </div>
   );
 }
