@@ -19,7 +19,7 @@ function replaceSpaceWithHyphen(inputString: string) {
   return inputString.replace(/\s+/g, "-");
 }
 
-export const downloadSheet = (invoiceData: Invoice) => {
+export const downloadInvoice = (invoiceData: Invoice) => {
   const data = [
     {
       sheet: "Invoice",
@@ -45,4 +45,10 @@ export const downloadSheet = (invoiceData: Invoice) => {
     ),
   };
   xlsx(data, settings);
+};
+
+export const generateExcelFilesForInvoices = (invoiceDataArray: Invoice[]) => {
+  invoiceDataArray.forEach((invoiceData) => {
+    downloadInvoice(invoiceData);
+  });
 };

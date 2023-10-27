@@ -5,3 +5,7 @@ type Invoice = {
   date: string;
   amount: string;
 };
+
+interface InvoiceList {
+  invoiceDataArray: Invoice[];
+}
