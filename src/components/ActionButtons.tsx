@@ -2,7 +2,6 @@ import { Button } from "./ui/button";
 import { exportToCSV, generateInvoiceFilename } from "../lib/utils";
 import { useState } from "react";
 import { saveAs } from "file-saver";
-import axios from "axios";
 import JSZip from "jszip";
 import { Icons } from "./utils/Icons";
 
@@ -26,9 +25,10 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
 
     try {
       for (const url of documentUrls) {
-        const response = await axios.get(url);
+        const response = await fetch(url);
+        const blob = await response.blob();
         const filename = url.substring(url.lastIndexOf("/") + 1);
-        zip.file(filename, response.data);
+        zip.file(filename, blob);
       }
 
       const content = await zip.generateAsync({ type: "blob" });
