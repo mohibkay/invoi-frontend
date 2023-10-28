@@ -6,10 +6,14 @@ import { useRef, useState } from "react";
 import Spinner from "@/components/utils/spinner";
 import InvoiceTable from "./components/InvoiceTable";
 import ActionButtons from "./components/ActionButtons";
+import { useToast } from "./components/ui/use-toast";
+import { Toaster } from "./components/ui/toaster";
+import { ToastAction } from "./components/ui/toast";
 
 const apiEndPoint = import.meta.env.VITE_BACKEND_BASE_URL;
 
 function App() {
+  const { toast } = useToast();
   const [invoiceDataArray, setInvoiceDataArray] = useState<Invoice[] | []>([]);
   const [documentUrls, setDocumentUrls] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -23,6 +27,12 @@ function App() {
     ) : (
       ""
     );
+
+  const triggerFileSelect = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
 
   const handleFileInput = async (event: any) => {
     const { files } = event.target;
@@ -45,7 +55,20 @@ function App() {
       setInvoiceDataArray([...invoiceDataArray, ...data.results]);
       setDocumentUrls([...documentUrls, ...data.documentUrls]);
     } catch (error) {
-      console.error(error);
+      if (error instanceof Error) {
+        console.error(error);
+        toast({
+          variant: "destructive",
+          title: "There was a problem with your request",
+          description: error.message,
+          action: (
+            <ToastAction onClick={triggerFileSelect} altText='Try again'>
+              Try again
+            </ToastAction>
+          ),
+        });
+        return error.message;
+      }
     } finally {
       setIsLoading(false);
       if (fileInputRef.current) {
@@ -91,6 +114,8 @@ function App() {
           />
         </>
       )}
+
+      <Toaster />
     </div>
   );
 }
