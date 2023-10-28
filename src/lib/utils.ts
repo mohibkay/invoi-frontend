@@ -18,6 +18,21 @@ export function generateInvoiceFilename(uniqueIdentifier: string) {
   return `${year}${month}${day}-${uniqueIdentifierHyphenated}`;
 }
 
+function formatDate(dateString: string) {
+  const [month, day, year] = dateString.split("/");
+  const formattedMonth = month.padStart(2, "0");
+  const formattedDay = day.padStart(2, "0");
+  return `${formattedDay}${formattedMonth}${year}`;
+}
+
+function generateUniqueInvoiceFilename(
+  uniqueIdentifier: string,
+  dateString: string
+) {
+  const uniqueIdentifierHyphenated = replaceSpaceWithHyphen(uniqueIdentifier);
+  return `${formatDate(dateString)}-${uniqueIdentifierHyphenated}`;
+}
+
 function replaceSpaceWithHyphen(inputString: string) {
   return inputString.replace(/\s+/g, "-");
 }
@@ -42,10 +57,12 @@ export const downloadInvoice = (invoiceData: Invoice) => {
       ],
     },
   ];
+
+  const { vendor, amount, date } = invoiceData;
+  const indentifier = `${vendor}-${amount}`;
+  const uniqueIdentifier = generateUniqueInvoiceFilename(indentifier, date);
   const settings = {
-    fileName: generateInvoiceFilename(
-      `${invoiceData.invoiceNumber}-${invoiceData.vendor}`
-    ),
+    fileName: `Invoice_${uniqueIdentifier}`,
   };
   xlsx(data, settings);
 };
@@ -68,6 +85,7 @@ export const exportToCSV = (
   const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
   const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
   const data = new Blob([excelBuffer], { type: fileType });
+
   saveAs(data, fileName + fileExtension);
 };
 
@@ -76,11 +94,18 @@ export async function generateAndZipInvoices(
   fileName = "Invoices"
 ) {
   const zip = new JSZip();
-  for (let i = 0; i < arrayofinvoices.length; i++) {
-    const ws = XLSX.utils.json_to_sheet([arrayofinvoices[i]]);
+  for (const invoiceData of arrayofinvoices) {
+    const ws = XLSX.utils.json_to_sheet([invoiceData]);
     const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
     const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "binary" });
-    zip.file(`Invoice_${i}${fileExtension}`, excelBuffer, { binary: true });
+
+    const { vendor, amount, date } = invoiceData;
+    const indentifier = `${vendor}-${amount}`;
+    const uniqueIdentifier = generateUniqueInvoiceFilename(indentifier, date);
+
+    zip.file(`Invoice_${uniqueIdentifier}${fileExtension}`, excelBuffer, {
+      binary: true,
+    });
   }
   const content = await zip.generateAsync({ type: "blob" });
   saveAs(content, `${fileName}.zip`);
