@@ -24,7 +24,7 @@ const arrayOfInvoices = [
   },
   {
     id: "2e8c5dae-5e1d-426d-8811-f2035ddb74df",
-    amount: "₹179.65",
+    amount: "179.65",
     date: "07/04/2023",
     invoiceNumber: "4792771283",
     vendor: "Giridhar",

@@ -77,22 +77,17 @@ const fileType =
   "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
 const fileExtension = ".xlsx";
 
-export const exportToCSV = (
-  arrayofinvoices: Invoice[],
-  fileName = "Invoices"
-) => {
+export const exportToCSV = (arrayofinvoices: Invoice[]) => {
   const ws = XLSX.utils.json_to_sheet(arrayofinvoices);
   const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
   const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
   const data = new Blob([excelBuffer], { type: fileType });
-
+  const identifier = generateInvoiceFilename(arrayofinvoices[0].vendor);
+  const fileName = `Invoice_${identifier}`;
   saveAs(data, fileName + fileExtension);
 };
 
-export async function generateAndZipInvoices(
-  arrayofinvoices: Invoice[],
-  fileName = "Invoices"
-) {
+export async function generateAndZipInvoices(arrayofinvoices: Invoice[]) {
   const zip = new JSZip();
   for (const invoiceData of arrayofinvoices) {
     const ws = XLSX.utils.json_to_sheet([invoiceData]);
@@ -107,6 +102,8 @@ export async function generateAndZipInvoices(
       binary: true,
     });
   }
+  const identifier = generateInvoiceFilename(arrayofinvoices[0].vendor);
+  const fileName = `Invoice_${identifier}`;
   const content = await zip.generateAsync({ type: "blob" });
   saveAs(content, `${fileName}.zip`);
 }
