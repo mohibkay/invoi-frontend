@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import axios from "axios";
 import "./App.css";
+import axios from "axios";
 import { Input } from "@/components/ui/input";
-import { useRef, useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 import Spinner from "@/components/utils/spinner";
 import InvoiceTable from "./components/InvoiceTable";
 import ActionButtons from "./components/ActionButtons";
@@ -34,8 +33,8 @@ function App() {
     }
   };
 
-  const handleFileInput = async (event: any) => {
-    const { files } = event.target;
+  const handleFileInput = async (event: ChangeEvent<HTMLInputElement>) => {
+    const { files } = event.target as HTMLInputElement;
     if (!files || !files.length) return;
 
     const formData = new FormData();
