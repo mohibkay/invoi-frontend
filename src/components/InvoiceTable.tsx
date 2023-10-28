@@ -6,16 +6,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
-import { downloadInvoice } from "@/lib/utils";
 
-const HEADERS = [
-  "Invoice Number",
-  "Vendor",
-  "Date",
-  "Amount",
-  "Download in excel",
-];
+const HEADERS = ["Invoice Number", "Vendor", "Date", "Amount"];
 
 interface Props {
   invoiceDataArray: Invoice[];
@@ -23,41 +15,29 @@ interface Props {
 
 const InvoiceTable = ({ invoiceDataArray }: Props) => {
   return (
-    <div>
-      <Table className='mt-12'>
-        <TableHeader>
+    <Table className='mt-12 max-w-5xl mx-auto'>
+      <TableHeader>
+        <TableRow>
+          {HEADERS.map((header) => (
+            <TableHead key={header} className='text-center'>
+              {header}
+            </TableHead>
+          ))}
+        </TableRow>
+      </TableHeader>
+      {invoiceDataArray.map((invoiceData) => (
+        <TableBody key={invoiceData.id}>
           <TableRow>
-            {HEADERS.map((header) => (
-              <TableHead key={header} className='text-center'>
-                {header}
-              </TableHead>
-            ))}
+            <TableCell className='font-medium'>
+              {invoiceData?.invoiceNumber || "Not Found"}
+            </TableCell>
+            <TableCell className='capitalize'>{invoiceData?.vendor}</TableCell>
+            <TableCell>{invoiceData?.date}</TableCell>
+            <TableCell>{invoiceData?.amount}</TableCell>
           </TableRow>
-        </TableHeader>
-        {invoiceDataArray.map((invoiceData) => (
-          <TableBody key={invoiceData.id}>
-            <TableRow>
-              <TableCell className='font-medium'>
-                {invoiceData?.invoiceNumber || "Not Found"}
-              </TableCell>
-              <TableCell className='capitalize'>
-                {invoiceData?.vendor}
-              </TableCell>
-              <TableCell>{invoiceData?.date}</TableCell>
-              <TableCell>{invoiceData?.amount}</TableCell>
-              <TableCell>
-                <Button
-                  variant='link'
-                  onClick={() => downloadInvoice(invoiceData)}
-                >
-                  <img src='excel.svg' className='h-6' alt='excel icon' />
-                </Button>
-              </TableCell>
-            </TableRow>
-          </TableBody>
-        ))}
-      </Table>
-    </div>
+        </TableBody>
+      ))}
+    </Table>
   );
 };
 
