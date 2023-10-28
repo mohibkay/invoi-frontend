@@ -4,6 +4,7 @@ import { useState } from "react";
 import { saveAs } from "file-saver";
 import axios from "axios";
 import JSZip from "jszip";
+import { Icons } from "./utils/Icons";
 
 type ActionButtonsProps = {
   invoiceDataArray: Invoice[];
@@ -15,6 +16,9 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
   documentUrls,
 }) => {
   const [isDownloading, setIsDownloading] = useState(false);
+  const downloadZipBtn = isDownloading
+    ? "Downloading zip"
+    : "Download All in zip";
 
   const downloadAndZipUrls = async () => {
     setIsDownloading(true);
@@ -37,9 +41,10 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
   };
 
   return (
-    <div className='mt-4'>
+    <div className='flex justify-center items-center mt-4'>
       <Button disabled={isDownloading} onClick={downloadAndZipUrls}>
-        Download All in zip
+        {isDownloading && <Icons.spinner />}
+        <span>{downloadZipBtn}</span>
       </Button>
       <Button
         onClick={() => exportToCSV(invoiceDataArray)}
