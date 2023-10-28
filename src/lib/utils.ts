@@ -15,7 +15,9 @@ export function generateInvoiceFilename(uniqueIdentifier: string) {
   const month = String(currentDate.getMonth() + 1).padStart(2, "0");
   const day = String(currentDate.getDate()).padStart(2, "0");
   const uniqueIdentifierHyphenated = replaceSpaceWithHyphen(uniqueIdentifier);
-  return `${year}${month}${day}-${uniqueIdentifierHyphenated}`;
+  return uniqueIdentifier
+    ? `${year}${month}${day}-${uniqueIdentifierHyphenated}`
+    : `${year}${month}${day}`;
 }
 
 function formatDate(dateString: string) {
@@ -82,7 +84,7 @@ export const exportToCSV = (arrayofinvoices: Invoice[]) => {
   const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
   const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
   const data = new Blob([excelBuffer], { type: fileType });
-  const identifier = generateInvoiceFilename(arrayofinvoices[0].vendor);
+  const identifier = generateInvoiceFilename("");
   const fileName = `Invoice_${identifier}`;
   saveAs(data, fileName + fileExtension);
 };
@@ -102,7 +104,7 @@ export async function generateAndZipInvoices(arrayofinvoices: Invoice[]) {
       binary: true,
     });
   }
-  const identifier = generateInvoiceFilename(arrayofinvoices[0].vendor);
+  const identifier = generateInvoiceFilename("");
   const fileName = `Invoice_${identifier}`;
   const content = await zip.generateAsync({ type: "blob" });
   saveAs(content, `${fileName}.zip`);

@@ -1,10 +1,44 @@
 import { Button } from "./ui/button";
-import { exportToCSV, generateAndZipInvoices } from "../lib/utils";
+import { exportToCSV, generateInvoiceFilename } from "../lib/utils";
+import { useState } from "react";
+import { saveAs } from "file-saver";
+import axios from "axios";
+import JSZip from "jszip";
 
-const ActionButtons: React.FC<InvoiceListProp> = ({ invoiceDataArray }) => {
+type ActionButtonsProps = {
+  invoiceDataArray: Invoice[];
+  documentUrls: string[];
+};
+
+const ActionButtons: React.FC<ActionButtonsProps> = ({
+  invoiceDataArray,
+  documentUrls,
+}) => {
+  const [isDownloading, setIsDownloading] = useState(false);
+
+  const downloadAndZipUrls = async () => {
+    setIsDownloading(true);
+    const zip = new JSZip();
+
+    try {
+      for (const url of documentUrls) {
+        const response = await axios.get(url);
+        const filename = url.substring(url.lastIndexOf("/") + 1);
+        zip.file(filename, response.data);
+      }
+
+      const content = await zip.generateAsync({ type: "blob" });
+      saveAs(content, `Invoice_${generateInvoiceFilename("")}`);
+    } catch (error) {
+      console.error("Error while downloading files:", error);
+    } finally {
+      setIsDownloading(false);
+    }
+  };
+
   return (
     <div className='mt-4'>
-      <Button onClick={() => generateAndZipInvoices(invoiceDataArray)}>
+      <Button disabled={isDownloading} onClick={downloadAndZipUrls}>
         Download All in zip
       </Button>
       <Button
