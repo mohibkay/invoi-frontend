@@ -6,6 +6,6 @@ type Invoice = {
   amount: string;
 };
 
-interface InvoiceList {
+interface InvoiceListProp {
   invoiceDataArray: Invoice[];
 }

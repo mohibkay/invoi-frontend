@@ -5,8 +5,7 @@ import { Input } from "@/components/ui/input";
 import { useRef, useState } from "react";
 import Spinner from "@/components/utils/spinner";
 import InvoiceTable from "./components/InvoiceTable";
-import { Button } from "./components/ui/button";
-import { exportToCSV, generateAndZipInvoices } from "./lib/utils";
+import ActionButtons from "./components/ActionButtons";
 
 const arrayOfInvoices = [
   {
@@ -111,16 +110,7 @@ function App() {
       {hasData && (
         <>
           <InvoiceTable invoiceDataArray={invoiceDataArray} />
-          <Button onClick={() => generateAndZipInvoices(invoiceDataArray)}>
-            Download All in zip
-          </Button>
-          <Button
-            onClick={() => exportToCSV(invoiceDataArray)}
-            variant='outline'
-            className='ml-4'
-          >
-            Download All in one excel
-          </Button>
+          <ActionButtons invoiceDataArray={invoiceDataArray} />
         </>
       )}
     </div>
