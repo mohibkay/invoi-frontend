@@ -5,11 +5,13 @@ import { Input } from "@/components/ui/input";
 import { useRef, useState } from "react";
 import Spinner from "@/components/utils/spinner";
 import InvoiceTable from "./components/InvoiceTable";
+import ActionButtons from "./components/ActionButtons";
 
 const apiEndPoint = import.meta.env.VITE_BACKEND_BASE_URL;
 
 function App() {
   const [invoiceDataArray, setInvoiceDataArray] = useState<Invoice[] | []>([]);
+  const [documentUrls, setDocumentUrls] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -41,6 +43,7 @@ function App() {
 
       const { data } = response;
       setInvoiceDataArray([...invoiceDataArray, ...data.results]);
+      setDocumentUrls([...documentUrls, ...data.documentUrls]);
     } catch (error) {
       console.error(error);
     } finally {
@@ -79,7 +82,15 @@ function App() {
 
       <>{loading}</>
 
-      {hasData && <InvoiceTable invoiceDataArray={invoiceDataArray} />}
+      {hasData && (
+        <>
+          <InvoiceTable invoiceDataArray={invoiceDataArray} />
+          <ActionButtons
+            invoiceDataArray={invoiceDataArray}
+            documentUrls={documentUrls}
+          />
+        </>
+      )}
     </div>
   );
 }
