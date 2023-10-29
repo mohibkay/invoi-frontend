@@ -1,23 +1,21 @@
 import { Button } from "./ui/button";
-import { exportToCSV, generateInvoiceFilename } from "../lib/utils";
 import { useState } from "react";
 import { saveAs } from "file-saver";
 import JSZip from "jszip";
 import { Icons } from "./utils/Icons";
+import { generateInvoiceFilename } from "@/lib/utils";
 
 type ActionButtonsProps = {
-  invoiceDataArray: Invoice[];
   documentUrls: string[];
+  downloadExcel: () => void;
 };
 
 const ActionButtons: React.FC<ActionButtonsProps> = ({
-  invoiceDataArray,
   documentUrls,
+  downloadExcel,
 }) => {
   const [isDownloading, setIsDownloading] = useState(false);
-  const downloadZipBtn = isDownloading
-    ? "Downloading zip"
-    : "Download All in zip";
+  const downloadZipBtn = isDownloading ? "Downloading zip" : "Download zip";
 
   const downloadAndZipUrls = async () => {
     setIsDownloading(true);
@@ -46,12 +44,8 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
         {isDownloading && <Icons.spinner />}
         <span>{downloadZipBtn}</span>
       </Button>
-      <Button
-        onClick={() => exportToCSV(invoiceDataArray)}
-        variant='outline'
-        className='ml-4'
-      >
-        Download All in one excel
+      <Button onClick={downloadExcel} variant='outline' className='ml-4'>
+        Download excel
       </Button>
     </div>
   );

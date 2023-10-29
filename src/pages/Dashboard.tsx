@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
 import { Toaster } from "@/components/ui/toaster";
 import { ToastAction } from "@/components/ui/toast";
+import { exportToCSV } from "@/lib/utils";
 
 const apiEndPoint = import.meta.env.VITE_BACKEND_BASE_URL;
 
@@ -108,8 +109,8 @@ function Dashboard() {
         <>
           <InvoiceTable invoiceDataArray={invoiceDataArray} />
           <ActionButtons
-            invoiceDataArray={invoiceDataArray}
             documentUrls={documentUrls}
+            downloadExcel={() => exportToCSV(invoiceDataArray)}
           />
         </>
       )}
