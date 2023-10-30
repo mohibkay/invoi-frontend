@@ -109,6 +109,7 @@ function Dashboard() {
         <>
           <InvoiceTable invoiceDataArray={invoiceDataArray} />
           <ActionButtons
+            invoiceDataArray={invoiceDataArray}
             documentUrls={documentUrls}
             downloadExcel={() => exportToCSV(invoiceDataArray)}
           />

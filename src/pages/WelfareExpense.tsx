@@ -109,6 +109,7 @@ function WelfareExpense() {
         <>
           <InvoiceTable invoiceDataArray={invoiceDataArray} />
           <ActionButtons
+            invoiceDataArray={invoiceDataArray}
             documentUrls={documentUrls}
             downloadExcel={() =>
               downloadExcelForWellnessExpense(invoiceDataArray)
