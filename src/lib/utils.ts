@@ -98,21 +98,30 @@ export const exportToCSV = (arrayofinvoices: ExportToCSVType) => {
 export const downloadExcelForWellnessExpense = (
   invoiceDataArray: Invoice[]
 ) => {
-  const wellnessExpenseData = invoiceDataArray.map((invoiceData) => ({
-    Description: "",
-    "Spent At": invoiceData.vendor,
-    Category: CATEGORY,
-    Currency: CURRENCY,
-    City: "",
-    "Txn Amount": parseFloat(
-      invoiceData.amount.replace("₹", "").replace(",", "")
-    ),
-    Wallet: REIMBURSEMENT,
-    "Date(YYYY-MM-DD)": invoiceData.date.split("/").reverse().join("-"),
-    "Invoice Number": invoiceData.invoiceNumber,
-    "Invoice Date": invoiceData.date.split("/").reverse().join("-"),
-    Client: "",
-  }));
+  const wellnessExpenseData = invoiceDataArray.map((invoiceData) => {
+    const platformFee = parseInt(invoiceData.platformFee);
+    const description =
+      platformFee == 2
+        ? "Zomato"
+        : platformFee === 3 || platformFee === 5 || platformFee === 8
+        ? "Swiggy"
+        : "";
+    return {
+      Description: description,
+      "Spent At": invoiceData.vendor,
+      Category: CATEGORY,
+      Currency: CURRENCY,
+      City: "",
+      "Txn Amount": parseFloat(
+        invoiceData.amount.replace("₹", "").replace(",", "")
+      ),
+      Wallet: REIMBURSEMENT,
+      "Date(YYYY-MM-DD)": invoiceData.date.split("/").reverse().join("-"),
+      "Invoice Number": invoiceData.invoiceNumber,
+      "Invoice Date": invoiceData.date.split("/").reverse().join("-"),
+      Client: "",
+    };
+  });
   return exportToCSV(wellnessExpenseData);
 };
 

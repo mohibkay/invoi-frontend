@@ -4,6 +4,7 @@ type Invoice = {
   invoiceNumber: string;
   date: string;
   amount: string;
+  platformFee: string;
 };
 
 type WellnessExpense = {
