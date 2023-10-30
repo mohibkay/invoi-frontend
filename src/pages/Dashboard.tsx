@@ -115,7 +115,6 @@ function Dashboard() {
           />
         </>
       )}
-
       <Toaster />
     </div>
   );
