@@ -83,7 +83,7 @@ const fileType =
   "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
 const fileExtension = ".xlsx";
 
-type ExportToCSVType = Invoice[] | WellnessExpense[];
+type ExportToCSVType = GeneralInvoice[] | WellnessExpense[];
 
 export const exportToCSV = (arrayofinvoices: ExportToCSVType) => {
   const ws = XLSX.utils.json_to_sheet(arrayofinvoices);
@@ -95,6 +95,17 @@ export const exportToCSV = (arrayofinvoices: ExportToCSVType) => {
   saveAs(data, fileName + fileExtension);
 };
 
+export const downloadGeneralExcel = (invoiceDataArray: Invoice[]) => {
+  const sanitizedInvoiceList = invoiceDataArray.map((invoiceData) => {
+    return {
+      vendor: invoiceData.vendor,
+      invoiceNumber: invoiceData.invoiceNumber,
+      date: invoiceData.date,
+      amount: invoiceData.amount,
+    };
+  });
+  return exportToCSV(sanitizedInvoiceList);
+};
 export const downloadExcelForWellnessExpense = (
   invoiceDataArray: Invoice[]
 ) => {

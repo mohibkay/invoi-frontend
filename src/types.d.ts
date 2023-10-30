@@ -7,6 +7,8 @@ type Invoice = {
   platformFee: string;
 };
 
+type GeneralInvoice = Omit<Invoice, id | platformFee>;
+
 type WellnessExpense = {
   Description: string;
   "Spent At": string;
