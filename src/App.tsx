@@ -1,18 +1,17 @@
 import "./App.css";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Dashboard from "./pages/Dashboard";
-import WellFareExpense from "./pages/WelfareExpense";
+import WelfareExpense from "./pages/WelfareExpense";
 
 function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Dashboard />,
+      element: <WelfareExpense />, // TODO: Change this to dashboard after fixing routing issue
     },
     {
       path: "/welfare",
-      element: <WellFareExpense />,
+      element: <WelfareExpense />,
     },
     {
       path: "*",
