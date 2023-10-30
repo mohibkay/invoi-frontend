@@ -31,9 +31,11 @@ const InvoiceTable = ({ invoiceDataArray }: Props) => {
             <TableCell className='font-medium'>
               {invoiceData?.invoiceNumber || "Not Found"}
             </TableCell>
-            <TableCell className='capitalize'>{invoiceData?.vendor}</TableCell>
-            <TableCell>{invoiceData?.date}</TableCell>
-            <TableCell>{invoiceData?.amount}</TableCell>
+            <TableCell className='capitalize'>
+              {invoiceData?.vendor || "Not Found"}
+            </TableCell>
+            <TableCell>{invoiceData?.date || "Not Found"}</TableCell>
+            <TableCell>{invoiceData?.amount || "Not Found"}</TableCell>
           </TableRow>
         </TableBody>
       ))}
