@@ -1,29 +1,25 @@
 import "./App.css";
 
-import {
-  Route,
-  createBrowserRouter,
-  createRoutesFromElements,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
-import WellFareExpenses from "./pages/WellFareExpenses";
-
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route>
-      <Route index element={<Dashboard />} />
-      <Route path='/welfare-expense' element={<WellFareExpenses />} />
-    </Route>
-  )
-);
+import WellFareExpense from "./pages/WelfareExpense";
 
 function App() {
-  return (
-    <>
-      <RouterProvider router={router} />
-    </>
-  );
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Dashboard />,
+    },
+    {
+      path: "/welfare",
+      element: <WellFareExpense />,
+    },
+    {
+      path: "*",
+      element: <h1>Page Not Found</h1>,
+    },
+  ]);
+  return <RouterProvider router={router} />;
 }
 
 export default App;

@@ -12,7 +12,7 @@ import { downloadExcelForWellnessExpense } from "@/lib/utils";
 
 const apiEndPoint = import.meta.env.VITE_BACKEND_BASE_URL;
 
-function WellFareExpenses() {
+function WelfareExpense() {
   const { toast } = useToast();
   const [invoiceDataArray, setInvoiceDataArray] = useState<Invoice[] | []>([]);
   const [documentUrls, setDocumentUrls] = useState<string[]>([]);
@@ -122,4 +122,4 @@ function WellFareExpenses() {
   );
 }
 
-export default WellFareExpenses;
+export default WelfareExpense;
