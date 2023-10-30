@@ -39,6 +39,10 @@ function replaceSpaceWithHyphen(inputString: string) {
   return inputString.replace(/\s+/g, "-");
 }
 
+const CATEGORY = "Welfare Expenses--Food";
+const CURRENCY = "Indian rupee";
+const REIMBURSEMENT = "Reimbursement";
+
 export const downloadInvoice = (invoiceData: Invoice) => {
   const data = [
     {
@@ -79,7 +83,9 @@ const fileType =
   "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8";
 const fileExtension = ".xlsx";
 
-export const exportToCSV = (arrayofinvoices: Invoice[]) => {
+type ExportToCSVType = Invoice[] | WellnessExpense[];
+
+export const exportToCSV = (arrayofinvoices: ExportToCSVType) => {
   const ws = XLSX.utils.json_to_sheet(arrayofinvoices);
   const wb = { Sheets: { data: ws }, SheetNames: ["data"] };
   const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
@@ -87,6 +93,36 @@ export const exportToCSV = (arrayofinvoices: Invoice[]) => {
   const identifier = generateInvoiceFilename("");
   const fileName = `Invoice_${identifier}`;
   saveAs(data, fileName + fileExtension);
+};
+
+export const downloadExcelForWellnessExpense = (
+  invoiceDataArray: Invoice[]
+) => {
+  const wellnessExpenseData = invoiceDataArray.map((invoiceData) => {
+    const platformFee = parseInt(invoiceData.platformFee);
+    const description =
+      platformFee == 2
+        ? "Zomato"
+        : platformFee === 3 || platformFee === 5 || platformFee === 8
+        ? "Swiggy"
+        : "";
+    return {
+      Description: description,
+      "Spent At": invoiceData.vendor,
+      Category: CATEGORY,
+      Currency: CURRENCY,
+      City: "",
+      "Txn Amount": parseFloat(
+        invoiceData.amount.replace("₹", "").replace(",", "")
+      ),
+      Wallet: REIMBURSEMENT,
+      "Date(YYYY-MM-DD)": invoiceData.date.split("/").reverse().join("-"),
+      "Invoice Number": invoiceData.invoiceNumber,
+      "Invoice Date": invoiceData.date.split("/").reverse().join("-"),
+      Client: "",
+    };
+  });
+  return exportToCSV(wellnessExpenseData);
 };
 
 export async function generateAndZipInvoices(arrayofinvoices: Invoice[]) {
