@@ -1,18 +1,27 @@
 import "./App.css";
-
+import { lazy, Suspense } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import WelfareExpense from "./pages/WelfareExpense";
-import Dashboard from "./pages/Dashboard";
+import Spinner from "./components/utils/spinner";
+const Dashboard = lazy(() => import("./pages/Dashboard"));
+const WelfareExpense = lazy(() => import("./pages/WelfareExpense"));
 
 function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Dashboard />,
+      element: (
+        <Suspense fallback={<Spinner />}>
+          <Dashboard />
+        </Suspense>
+      ),
     },
     {
       path: "/welfare",
-      element: <WelfareExpense />,
+      element: (
+        <Suspense fallback={<Spinner />}>
+          <WelfareExpense />
+        </Suspense>
+      ),
     },
     {
       path: "*",
