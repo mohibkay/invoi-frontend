@@ -1,7 +1,7 @@
 import Spinner from "@/components/utils/spinner";
 import axios from "axios";
 import { cn } from "@/lib/utils";
-import { UploadCloud } from "lucide-react";
+import { UploadCloud, DownloadCloud } from "lucide-react";
 import { ChangeEvent, Dispatch, SetStateAction, useRef, useState } from "react";
 import { ToastAction } from "@/components/ui/toast";
 import { useToast } from "@/components/ui/use-toast";
@@ -131,21 +131,40 @@ export default function UploadComponent({
             <div
               className={cn(
                 "px-4 py-2 border-[1.5px] border-dashed dark:border-neutral-700 m-2 rounded-xl flex flex-col justify-start items-center hover:cursor-pointer",
-                dragOver && "border-blue-600 bg-blue-50"
+                dragOver && "border-blue-600 bg-blue-50",
+                isLoading &&
+                  dragOver &&
+                  "border-red-600 bg-red-50 cursor-not-allowed"
               )}
             >
               <div className='flex flex-col justify-start items-center'>
-                <UploadCloud
-                  className={cn(
-                    "h-5 w-5 text-neutral-600 my-4",
-                    dragOver && "text-blue-500"
-                  )}
-                />
+                {isLoading ? (
+                  <DownloadCloud
+                    className={cn(
+                      "h-5 w-5 text-neutral-600 my-4",
+                      dragOver && "text-blue-500",
+                      isLoading && dragOver && "text-red-500"
+                    )}
+                  />
+                ) : (
+                  <UploadCloud
+                    className={cn(
+                      "h-5 w-5 text-neutral-600 my-4",
+                      dragOver && "text-blue-500"
+                    )}
+                  />
+                )}
                 <p className='font-semibold'>
-                  Choose a file or drag & drop it here
+                  {isLoading && dragOver
+                    ? "Please wait"
+                    : isLoading
+                    ? "Sit back and relax"
+                    : "Choose a file or drag & drop it here"}
                 </p>
                 <p className='text-neutral-500 text-sm pb-2'>
-                  PDF, JPEG, JPG, PNG formats.
+                  {isLoading
+                    ? "We are processing the files"
+                    : "PDF, JPEG, JPG, PNG formats."}
                 </p>
                 {isLoading ? (
                   <Spinner />
