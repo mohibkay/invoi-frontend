@@ -10,12 +10,12 @@ import { Toaster } from "@/components/ui/toaster";
 import { ToastAction } from "@/components/ui/toast";
 import { downloadGeneralExcel } from "@/lib/utils";
 
-const apiEndPoint = import.meta.env.VITE_BACKEND_BASE_URL;
+// const apiEndPoint = import.meta.env.VITE_BACKEND_BASE_URL;
+const apiEndPoint = "http://invoi.ap-south-1.elasticbeanstalk.com/";
 
 function Dashboard() {
   const { toast } = useToast();
   const [invoiceDataArray, setInvoiceDataArray] = useState<Invoice[] | []>([]);
-  const [documentUrls, setDocumentUrls] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -53,7 +53,6 @@ function Dashboard() {
 
       const { data } = response;
       setInvoiceDataArray([...invoiceDataArray, ...data.results]);
-      setDocumentUrls([...documentUrls, ...data.documentUrls]);
     } catch (error) {
       if (error instanceof Error) {
         console.error(error);
@@ -110,7 +109,6 @@ function Dashboard() {
           <InvoiceTable invoiceDataArray={invoiceDataArray} />
           <ActionButtons
             invoiceDataArray={invoiceDataArray}
-            documentUrls={documentUrls}
             downloadExcel={() => downloadGeneralExcel(invoiceDataArray)}
           />
         </>

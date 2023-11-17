@@ -5,6 +5,7 @@ type Invoice = {
   date: string;
   amount: string;
   platformFee: string;
+  documentUrl: Url;
 };
 
 type GeneralInvoice = Omit<Invoice, id | platformFee>;
