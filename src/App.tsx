@@ -4,6 +4,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Spinner from "./components/utils/spinner";
 import Login from "./pages/Login";
 import { ROUTES } from "./lib/routes";
+import RequireAuth from "./components/utils/RequireAuth";
+import AuthGuard from "./components/utils/AuthGuard";
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const WelfareExpense = lazy(() => import("./pages/WelfareExpense"));
 
@@ -13,7 +15,9 @@ function App() {
       path: ROUTES.DASHBOARD,
       element: (
         <Suspense fallback={<Spinner />}>
-          <Dashboard />
+          <RequireAuth>
+            <Dashboard />
+          </RequireAuth>
         </Suspense>
       ),
     },
@@ -21,7 +25,9 @@ function App() {
       path: ROUTES.WELFARE,
       element: (
         <Suspense fallback={<Spinner />}>
-          <WelfareExpense />
+          <RequireAuth>
+            <WelfareExpense />
+          </RequireAuth>
         </Suspense>
       ),
     },
@@ -29,7 +35,9 @@ function App() {
       path: ROUTES.LOGIN,
       element: (
         <Suspense fallback={<Spinner />}>
-          <Login />
+          <AuthGuard>
+            <Login />
+          </AuthGuard>
         </Suspense>
       ),
     },
