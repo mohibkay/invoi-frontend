@@ -9,6 +9,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { Toaster } from "@/components/ui/toaster";
 import { ToastAction } from "@/components/ui/toast";
 import { downloadGeneralExcel } from "@/lib/utils";
+import Navbar from "@/components/Navbar";
 
 const apiEndPoint = import.meta.env.VITE_BACKEND_BASE_URL;
 
@@ -83,6 +84,7 @@ function Dashboard() {
 
   return (
     <div>
+      <Navbar />
       <h1 className='text-5xl mb-12'>Invoi</h1>
       <form
         encType='multipart/form-data'
