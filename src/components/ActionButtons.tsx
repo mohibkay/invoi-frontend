@@ -7,12 +7,10 @@ import { generateInvoiceFilename } from "@/lib/utils";
 
 type ActionButtonsProps = {
   invoiceDataArray: Invoice[];
-  documentUrls: string[];
   downloadExcel: () => void;
 };
 
 const ActionButtons: React.FC<ActionButtonsProps> = ({
-  documentUrls,
   downloadExcel,
   invoiceDataArray,
 }) => {
@@ -25,13 +23,15 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
 
     try {
       let i = 0;
-      for (const url of documentUrls) {
-        const response = await fetch(url);
+      for (const invoice of invoiceDataArray) {
+        const { invoiceNumber, vendor, documentUrl } = invoice;
+        const response = await fetch(invoice.documentUrl);
         const blob = await response.blob();
         const serialNumber = String(i + 1).padStart(3, "0");
-        const fileExtension = url.substring(url.lastIndexOf(".") + 1);
-        const identifier =
-          invoiceDataArray[i].invoiceNumber || invoiceDataArray[i].vendor;
+        const fileExtension = documentUrl.substring(
+          documentUrl.lastIndexOf(".") + 1
+        );
+        const identifier = invoiceNumber || vendor;
         const filename = `${serialNumber}-${identifier}.${fileExtension}`;
         zip.file(filename, blob);
         i++;

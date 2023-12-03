@@ -20,7 +20,6 @@ function Dashboard() {
   const { toast } = useToast();
   const dispatch = useAppDispatch();
   const [invoiceDataArray, setInvoiceDataArray] = useState<Invoice[] | []>([]);
-  const [documentUrls, setDocumentUrls] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const { data: user, refetch } = useGetUser();
@@ -66,7 +65,6 @@ function Dashboard() {
 
       const { data } = response;
       setInvoiceDataArray([...invoiceDataArray, ...data.results]);
-      setDocumentUrls([...documentUrls, ...data.documentUrls]);
     } catch (error) {
       if (error instanceof Error) {
         console.error(error);
@@ -124,7 +122,6 @@ function Dashboard() {
           <InvoiceTable invoiceDataArray={invoiceDataArray} />
           <ActionButtons
             invoiceDataArray={invoiceDataArray}
-            documentUrls={documentUrls}
             downloadExcel={() => downloadGeneralExcel(invoiceDataArray)}
           />
         </>
