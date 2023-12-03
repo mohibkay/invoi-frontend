@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 
 import Spinner from "@/components/utils/spinner";
 import InvoiceTable from "@/components/InvoiceTable";
@@ -10,15 +10,27 @@ import { Toaster } from "@/components/ui/toaster";
 import { ToastAction } from "@/components/ui/toast";
 import { downloadGeneralExcel } from "@/lib/utils";
 import Navbar from "@/components/Navbar";
+import { useGetUser } from "@/api/user";
+import { useAppDispatch } from "@/redux/hooks";
+import { setUser } from "@/redux/features/userSlice";
 
 const apiEndPoint = import.meta.env.VITE_BACKEND_BASE_URL;
 
 function Dashboard() {
   const { toast } = useToast();
+  const dispatch = useAppDispatch();
   const [invoiceDataArray, setInvoiceDataArray] = useState<Invoice[] | []>([]);
   const [documentUrls, setDocumentUrls] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const { data: user, refetch } = useGetUser();
+
+  useEffect(() => {
+    refetch();
+    if (user?.email) {
+      dispatch(setUser(user));
+    }
+  }, [dispatch, invoiceDataArray, refetch, user]);
 
   const loading = isLoading ? <Spinner /> : "";
   const hasData = !!Object.entries(invoiceDataArray).length;

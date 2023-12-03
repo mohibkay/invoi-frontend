@@ -2,13 +2,15 @@ import { useGetUser } from "@/api/user";
 import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/utils/Icons";
 import { ROUTES } from "@/lib/routes";
+import { setUser } from "@/redux/features/userSlice";
+import { useAppDispatch } from "@/redux/hooks";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import store from "storejs";
 
 const Login = () => {
   const { search } = useLocation();
-
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const searchParams = new URLSearchParams(search);
   const token = searchParams.get("token");
@@ -19,6 +21,7 @@ const Login = () => {
   }
 
   const { data: user } = useGetUser();
+  console.log("🐬 ~ Login ~ user:", user);
 
   const googleAuth = () => {
     window.open(googleAuthUrl, "_self");
@@ -26,9 +29,10 @@ const Login = () => {
 
   useEffect(() => {
     if (user?.email) {
+      dispatch(setUser(user));
       navigate(ROUTES.DASHBOARD);
     }
-  }, [navigate, user]);
+  }, [dispatch, navigate, user]);
 
   return (
     <div>
