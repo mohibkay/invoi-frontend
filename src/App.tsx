@@ -7,7 +7,6 @@ import { ROUTES } from "./lib/routes";
 import RequireAuth from "./components/utils/RequireAuth";
 import AuthGuard from "./components/utils/AuthGuard";
 const Dashboard = lazy(() => import("./pages/Dashboard"));
-const WelfareExpense = lazy(() => import("./pages/WelfareExpense"));
 
 function App() {
   const router = createBrowserRouter([
@@ -26,7 +25,7 @@ function App() {
       element: (
         <Suspense fallback={<Spinner />}>
           <RequireAuth>
-            <WelfareExpense />
+            <Dashboard />
           </RequireAuth>
         </Suspense>
       ),

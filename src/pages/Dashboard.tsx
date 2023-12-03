@@ -8,17 +8,24 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
 import { Toaster } from "@/components/ui/toaster";
 import { ToastAction } from "@/components/ui/toast";
-import { downloadGeneralExcel } from "@/lib/utils";
+import {
+  downloadGeneralExcel,
+  downloadExcelForWellnessExpense,
+} from "@/lib/utils";
 import Navbar from "@/components/Navbar";
 import { useGetUser } from "@/api/user";
 import { useAppDispatch } from "@/redux/hooks";
 import { setUser } from "@/redux/features/userSlice";
+import { useLocation } from "react-router-dom";
+import { ROUTES } from "@/lib/routes";
 
 const apiEndPoint = import.meta.env.VITE_BACKEND_BASE_URL;
 
 function Dashboard() {
   const { toast } = useToast();
+  const location = useLocation();
   const dispatch = useAppDispatch();
+  const isWelfarePage = location.pathname === ROUTES.WELFARE;
   const [invoiceDataArray, setInvoiceDataArray] = useState<Invoice[] | []>([]);
   const [isLoading, setIsLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -94,6 +101,12 @@ function Dashboard() {
     event.preventDefault();
   };
 
+  const downloadExcel = () => {
+    isWelfarePage
+      ? downloadExcelForWellnessExpense(invoiceDataArray)
+      : downloadGeneralExcel(invoiceDataArray);
+  };
+
   return (
     <div>
       <Navbar />
@@ -124,7 +137,7 @@ function Dashboard() {
           <InvoiceTable invoiceDataArray={invoiceDataArray} />
           <ActionButtons
             invoiceDataArray={invoiceDataArray}
-            downloadExcel={() => downloadGeneralExcel(invoiceDataArray)}
+            downloadExcel={downloadExcel}
           />
         </>
       )}
