@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 
 import Spinner from "@/components/utils/spinner";
@@ -65,12 +65,12 @@ function Dashboard() {
 
       const { data } = response;
       setInvoiceDataArray([...invoiceDataArray, ...data.results]);
-    } catch (error) {
-      if (error instanceof Error) {
+    } catch (error: unknown) {
+      if (error instanceof AxiosError) {
         console.error(error);
         toast({
           variant: "destructive",
-          title: "There was a problem with your request",
+          title: error.response?.data?.error,
           description: error.message,
           action: (
             <ToastAction onClick={triggerFileSelect} altText='Try again'>
@@ -79,6 +79,8 @@ function Dashboard() {
           ),
         });
         return error.message;
+      } else {
+        console.error(error);
       }
     } finally {
       setIsLoading(false);
