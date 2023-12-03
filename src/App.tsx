@@ -2,6 +2,7 @@ import "./App.css";
 import { lazy, Suspense } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Spinner from "./components/utils/spinner";
+import Login from "./pages/Login";
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const WelfareExpense = lazy(() => import("./pages/WelfareExpense"));
 
@@ -20,6 +21,14 @@ function App() {
       element: (
         <Suspense fallback={<Spinner />}>
           <WelfareExpense />
+        </Suspense>
+      ),
+    },
+    {
+      path: "/login",
+      element: (
+        <Suspense fallback={<Spinner />}>
+          <Login />
         </Suspense>
       ),
     },

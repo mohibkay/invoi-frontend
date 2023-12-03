@@ -1,3 +1,16 @@
+type UserResponse = {
+  user: UserTypes;
+};
+type UserTypes = {
+  email: string;
+  firstName: string;
+  lastName: string;
+  avatar: string;
+  googleId: string;
+  credits: number;
+  subscriptionType: "FREE" | "PAID";
+};
+
 type Invoice = {
   id: string;
   vendor: string;
