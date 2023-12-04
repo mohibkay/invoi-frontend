@@ -1,3 +1,4 @@
+import { baseURL } from "@/api/routes";
 import { useGetUser } from "@/api/user";
 import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/utils/Icons";
@@ -14,7 +15,7 @@ const Login = () => {
   const navigate = useNavigate();
   const searchParams = new URLSearchParams(search);
   const token = searchParams.get("token");
-  const googleAuthUrl = import.meta.env.VITE_GOOGLE_AUTH_URL;
+  const googleAuthUrl = baseURL + import.meta.env.VITE_GOOGLE_AUTH_URL;
 
   if (token) {
     store.set("token", token);
