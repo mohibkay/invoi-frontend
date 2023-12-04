@@ -25,7 +25,7 @@ const Navbar = () => {
         Invoi
       </Link>
 
-      <p>Credits: {credits}</p>
+      <p className='text-lg'>Credits: {credits}</p>
       <Button variant='link' onClick={handleLogout}>
         <Icons.logout />
       </Button>
