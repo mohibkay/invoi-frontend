@@ -40,12 +40,6 @@ function Dashboard() {
 
   const loading = isLoading ? <Spinner /> : "";
   const hasData = !!Object.entries(invoiceDataArray).length;
-  const uploadMore =
-    hasData && !loading ? (
-      <span className='text-primary'>Upload more 👆</span>
-    ) : (
-      ""
-    );
 
   const triggerFileSelect = () => {
     if (fileInputRef.current) {
@@ -108,41 +102,40 @@ function Dashboard() {
   };
 
   return (
-    <div>
+    <>
       <Navbar />
-      <h1 className='text-5xl mb-12'>Invoi</h1>
-      <form
-        encType='multipart/form-data'
-        className='grid space-x-2 w-full mx-auto max-w-sm items-center gap-1.5 mb-8'
-        onSubmit={handleSubmit}
-      >
-        <Input
-          id='file'
-          name='file'
-          type='file'
-          accept='.pdf, .jpeg, .jpg, .png'
-          className='mx-auto'
-          disabled={isLoading}
-          ref={fileInputRef}
-          onChange={handleFileInput}
-          multiple
-        />
-        <>{uploadMore}</>
-      </form>
-
-      <>{loading}</>
-
-      {hasData && (
-        <>
-          <InvoiceTable invoiceDataArray={invoiceDataArray} />
-          <ActionButtons
-            invoiceDataArray={invoiceDataArray}
-            downloadExcel={downloadExcel}
+      <main>
+        <form
+          encType='multipart/form-data'
+          className='grid space-x-2 w-full mx-auto max-w-sm items-center gap-1.5 mb-8 mt-12'
+          onSubmit={handleSubmit}
+        >
+          <Input
+            id='file'
+            name='file'
+            type='file'
+            accept='.pdf, .jpeg, .jpg, .png'
+            className='mx-auto'
+            disabled={isLoading}
+            ref={fileInputRef}
+            onChange={handleFileInput}
+            multiple
           />
-        </>
-      )}
-      <Toaster />
-    </div>
+        </form>
+
+        <>{loading}</>
+        {hasData && (
+          <>
+            <InvoiceTable invoiceDataArray={invoiceDataArray} />
+            <ActionButtons
+              invoiceDataArray={invoiceDataArray}
+              downloadExcel={downloadExcel}
+            />
+          </>
+        )}
+        <Toaster />
+      </main>
+    </>
   );
 }
 
