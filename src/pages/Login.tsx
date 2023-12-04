@@ -36,7 +36,7 @@ const Login = () => {
   }, [dispatch, navigate, user]);
 
   return (
-    <div>
+    <div className='h-screen grid place-content-center'>
       <Button variant='outline' onClick={googleAuth}>
         <Icons.google width={"20px"} height={"20px"} />
         <p className={"pl-2"}>Sign in with google </p>

@@ -1,9 +1,11 @@
 import store from "storejs";
 import { useQueryClient } from "@tanstack/react-query";
 import { ROUTES } from "@/lib/routes";
-import { useNavigate } from "react-router-dom";
-import { Button } from "./ui/button";
+import { useNavigate, Link } from "react-router-dom";
+
 import { useAppSelector } from "@/redux/hooks";
+import { Button } from "./ui/button";
+import { Icons } from "./utils/Icons";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -18,10 +20,16 @@ const Navbar = () => {
   };
 
   return (
-    <div>
-      <Button onClick={handleLogout}>Logout</Button>
-      <p>Credits: {credits}</p>
-    </div>
+    <nav className='flex justify-between items-baseline border-b shadow-sm px-4 py-2'>
+      <Link to={ROUTES.DASHBOARD} className='text-3xl'>
+        Invoi
+      </Link>
+
+      <p className='text-lg'>Credits: {credits}</p>
+      <Button variant='link' onClick={handleLogout}>
+        <Icons.logout />
+      </Button>
+    </nav>
   );
 };
 

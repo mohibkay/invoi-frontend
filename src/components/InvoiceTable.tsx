@@ -15,7 +15,7 @@ interface Props {
 
 const InvoiceTable = ({ invoiceDataArray }: Props) => {
   return (
-    <Table className='mt-12 max-w-5xl mx-auto'>
+    <Table className='mt-4 max-w-5xl mx-auto'>
       <TableHeader>
         <TableRow>
           {HEADERS.map((header) => (
