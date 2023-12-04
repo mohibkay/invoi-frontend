@@ -1,7 +1,7 @@
 import "./App.css";
 import { lazy, Suspense } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Spinner from "./components/utils/spinner";
+import { PageSpinner } from "./components/utils/spinner";
 import Login from "./pages/Login";
 import { ROUTES } from "./lib/routes";
 import RequireAuth from "./components/utils/RequireAuth";
@@ -13,7 +13,7 @@ function App() {
     {
       path: ROUTES.DASHBOARD,
       element: (
-        <Suspense fallback={<Spinner />}>
+        <Suspense fallback={<PageSpinner />}>
           <RequireAuth>
             <Dashboard />
           </RequireAuth>
@@ -23,7 +23,7 @@ function App() {
     {
       path: ROUTES.WELFARE,
       element: (
-        <Suspense fallback={<Spinner />}>
+        <Suspense fallback={<PageSpinner />}>
           <RequireAuth>
             <Dashboard />
           </RequireAuth>
@@ -33,7 +33,7 @@ function App() {
     {
       path: ROUTES.LOGIN,
       element: (
-        <Suspense fallback={<Spinner />}>
+        <Suspense fallback={<PageSpinner />}>
           <AuthGuard>
             <Login />
           </AuthGuard>
