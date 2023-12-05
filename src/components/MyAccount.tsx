@@ -41,7 +41,7 @@ const MyAccount = ({ avatar }: MyAccountProps) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem onClick={handleBuyCredits}>
-          Buy Credits
+          Buy 100 Credits
         </DropdownMenuItem>
         <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
       </DropdownMenuContent>
