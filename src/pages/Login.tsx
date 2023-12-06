@@ -40,7 +40,11 @@ const Login = () => {
     <div className='h-screen flex flex-col'>
       <Navbar />
       <div className='flex-1 grid place-content-center'>
-        <Button variant='outline' onClick={googleAuth}>
+        <Button
+          variant='outline'
+          className='hover:bg-primary/10'
+          onClick={googleAuth}
+        >
           <Icons.google width={"20px"} height={"20px"} />
           <p className={"pl-2"}>Sign in with google </p>
         </Button>
