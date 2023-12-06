@@ -1,6 +1,12 @@
-const Spinner = () => {
+import { cn } from "@/lib/utils";
+
+interface SpinnerProps {
+  className?: string;
+}
+
+const Spinner = ({ className = "" }: SpinnerProps) => {
   return (
-    <div className='text-center'>
+    <div className={cn("text-center", className)}>
       <div role='status'>
         <svg
           aria-hidden='true'
@@ -23,5 +29,9 @@ const Spinner = () => {
     </div>
   );
 };
+
+export const PageSpinner = () => (
+  <Spinner className='h-screen grid place-content-center' />
+);
 
 export default Spinner;

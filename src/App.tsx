@@ -1,25 +1,42 @@
 import "./App.css";
 import { lazy, Suspense } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Spinner from "./components/utils/spinner";
+import { PageSpinner } from "./components/utils/spinner";
+import Login from "./pages/Login";
+import { ROUTES } from "./lib/routes";
+import RequireAuth from "./components/utils/RequireAuth";
+import AuthGuard from "./components/utils/AuthGuard";
 const Dashboard = lazy(() => import("./pages/Dashboard"));
-const WelfareExpense = lazy(() => import("./pages/WelfareExpense"));
 
 function App() {
   const router = createBrowserRouter([
     {
-      path: "/",
+      path: ROUTES.DASHBOARD,
       element: (
-        <Suspense fallback={<Spinner />}>
-          <Dashboard />
+        <Suspense fallback={<PageSpinner />}>
+          <RequireAuth>
+            <Dashboard />
+          </RequireAuth>
         </Suspense>
       ),
     },
     {
-      path: "/welfare",
+      path: ROUTES.WELFARE,
       element: (
-        <Suspense fallback={<Spinner />}>
-          <WelfareExpense />
+        <Suspense fallback={<PageSpinner />}>
+          <RequireAuth>
+            <Dashboard />
+          </RequireAuth>
+        </Suspense>
+      ),
+    },
+    {
+      path: ROUTES.LOGIN,
+      element: (
+        <Suspense fallback={<PageSpinner />}>
+          <AuthGuard>
+            <Login />
+          </AuthGuard>
         </Suspense>
       ),
     },
