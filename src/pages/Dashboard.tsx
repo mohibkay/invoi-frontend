@@ -31,12 +31,19 @@ function Dashboard() {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const { data: user, refetch } = useGetUser();
 
+  console.log("dashboard rendering");
+
   useEffect(() => {
-    refetch();
     if (user?.email) {
       dispatch(setUser(user));
     }
-  }, [dispatch, invoiceDataArray, refetch, user]);
+  }, [dispatch, user]);
+
+  useEffect(() => {
+    if (invoiceDataArray) {
+      refetch();
+    }
+  }, [invoiceDataArray, refetch]);
 
   const loading = isLoading ? <Spinner /> : "";
   const hasData = !!Object.entries(invoiceDataArray).length;
