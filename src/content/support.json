@@ -1,0 +1,38 @@
+{
+  "supportPage": {
+    "title": "Support",
+    "content": "Welcome to Invoi! We're here to assist you with any questions or concerns you may have. Please find our contact information below:",
+    "contactInformation": {
+      "companyAddress": "Pashan, Pune",
+      "domesticTelephone": "8434317743"
+    },
+    "workingHours": "Monday to Friday: 9:00 AM - 6:00 PM IST",
+    "contactChannels": {
+      "email": "mhkmohib@gmail.com",
+      "phone": "8434317743"
+    }
+  },
+  "privacyPolicyPage": {
+    "title": "Privacy Policy",
+    "intro": "Welcome to Invoi! This Privacy Policy outlines how we collect, use, disclose, and safeguard your personal information when you use our website and services.",
+    "sections": [
+      {
+        "sectionTitle": "Information We Collect",
+        "content": "Invoices uploaded for processing are deleted after a day."
+      },
+      {
+        "sectionTitle": "Purpose of Information Use",
+        "content": "We upload the invoices to our servers for processing"
+      },
+      {
+        "sectionTitle": "Information Disclosure",
+        "content": "We do not sell, trade, or otherwise transfer your personal information to external parties"
+      },
+      {
+        "sectionTitle": "Information Security",
+        "content": "We implement reasonable security measures to protect your personal information"
+      }
+    ],
+    "consentText": "By using our website and services, you consent to the terms outlined in this Privacy Policy."
+  }
+}

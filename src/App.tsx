@@ -7,6 +7,7 @@ import { ROUTES } from "./lib/routes";
 import RequireAuth from "./components/utils/RequireAuth";
 import AuthGuard from "./components/utils/AuthGuard";
 import Support from "./pages/Support";
+import Layout from "./components/layout";
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 
 function App() {
@@ -44,9 +45,11 @@ function App() {
     {
       path: ROUTES.SUPPORT,
       element: (
-        <Suspense fallback={<PageSpinner />}>
-          <Support />
-        </Suspense>
+        <Layout>
+          <Suspense fallback={<PageSpinner />}>
+            <Support />
+          </Suspense>
+        </Layout>
       ),
     },
     {
