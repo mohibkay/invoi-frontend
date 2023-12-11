@@ -36,11 +36,13 @@ function App() {
     {
       path: ROUTES.LOGIN,
       element: (
-        <Suspense fallback={<PageSpinner />}>
-          <AuthGuard>
-            <Login />
-          </AuthGuard>
-        </Suspense>
+        <Layout>
+          <Suspense fallback={<PageSpinner />}>
+            <AuthGuard>
+              <Login />
+            </AuthGuard>
+          </Suspense>
+        </Layout>
       ),
     },
     {
