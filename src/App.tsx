@@ -9,6 +9,7 @@ import AuthGuard from "./components/utils/AuthGuard";
 import Support from "./pages/Support";
 import Layout from "./components/layout";
 import TermsOfServicePage from "./pages/TermsOfService";
+import PrivacyPolicyPage from "./pages/PrivacyPolicy";
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 
 function App() {
@@ -70,7 +71,7 @@ function App() {
       element: (
         <Layout>
           <Suspense fallback={<PageSpinner />}>
-            <Support />
+            <PrivacyPolicyPage />
           </Suspense>
         </Layout>
       ),
