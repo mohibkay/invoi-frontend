@@ -1,6 +1,5 @@
 import { baseURL } from "@/api/routes";
 import { useGetUser } from "@/api/user";
-import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/utils/Icons";
 import { ROUTES } from "@/lib/routes";
@@ -37,18 +36,15 @@ const Login = () => {
   }, [dispatch, navigate, user]);
 
   return (
-    <div className='h-screen flex flex-col'>
-      <Navbar />
-      <div className='flex-1 grid place-content-center'>
-        <Button
-          variant='outline'
-          className='hover:bg-primary/10'
-          onClick={googleAuth}
-        >
-          <Icons.google width={"20px"} height={"20px"} />
-          <p className={"pl-2"}>Sign in with google </p>
-        </Button>
-      </div>
+    <div className='flex-1 grid place-content-center'>
+      <Button
+        variant='outline'
+        className='hover:bg-primary/10'
+        onClick={googleAuth}
+      >
+        <Icons.google width={"20px"} height={"20px"} />
+        <p className={"pl-2"}>Sign in with google </p>
+      </Button>
     </div>
   );
 };
