@@ -54,7 +54,7 @@
       },
       {
         "title": "Privacy Policy",
-        "content": "User data is handled according to our Privacy Policy, available at [Privacy Policy URL]."
+        "content": "User data is handled according to our Privacy Policy, available at https://invoi-one.vercel.app/privacy-policy."
       },
       {
         "title": "Termination",
