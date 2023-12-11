@@ -10,6 +10,7 @@ import Support from "./pages/Support";
 import Layout from "./components/layout";
 import TermsOfServicePage from "./pages/TermsOfService";
 import PrivacyPolicyPage from "./pages/PrivacyPolicy";
+import CancellationPolicyPage from "./pages/Cancellation";
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 
 function App() {
@@ -81,7 +82,7 @@ function App() {
       element: (
         <Layout>
           <Suspense fallback={<PageSpinner />}>
-            <Support />
+            <CancellationPolicyPage />
           </Suspense>
         </Layout>
       ),

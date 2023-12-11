@@ -102,5 +102,15 @@
       "email": "mhkmohib@gmail.com",
       "address": "HSR Sector 2, Bangalore"
     }
+  },
+  "cancellationPolicy": {
+    "version": "1.0",
+    "lastUpdated": "2023-12-08",
+    "effectiveDate": "2023-12-15",
+    "policyText": "We regret to inform you that our service does not offer cancellations or refunds. Once a subscription is purchased, it is considered final, and fees are non-refundable.",
+    "contactInformation": {
+      "email": "mhkmohib@gmail.com",
+      "address": "HSR Sector 2, Bangalore"
+    }
   }
 }
