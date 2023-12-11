@@ -8,6 +8,7 @@ import RequireAuth from "./components/utils/RequireAuth";
 import AuthGuard from "./components/utils/AuthGuard";
 import Support from "./pages/Support";
 import Layout from "./components/layout";
+import TermsOfServicePage from "./pages/TermsOfService";
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 
 function App() {
@@ -44,6 +45,36 @@ function App() {
     },
     {
       path: ROUTES.SUPPORT,
+      element: (
+        <Layout>
+          <Suspense fallback={<PageSpinner />}>
+            <Support />
+          </Suspense>
+        </Layout>
+      ),
+    },
+    {
+      path: ROUTES.TERMS,
+      element: (
+        <Layout>
+          <Suspense fallback={<PageSpinner />}>
+            <TermsOfServicePage />
+          </Suspense>
+        </Layout>
+      ),
+    },
+    {
+      path: ROUTES.PRIVACY,
+      element: (
+        <Layout>
+          <Suspense fallback={<PageSpinner />}>
+            <Support />
+          </Suspense>
+        </Layout>
+      ),
+    },
+    {
+      path: ROUTES.CANCELLATION,
       element: (
         <Layout>
           <Suspense fallback={<PageSpinner />}>

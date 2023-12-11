@@ -6,7 +6,7 @@ const SupportPage = () => {
   return (
     <div>
       <h1 className='text-4xl my-6'>{supportContent.title}</h1>
-      <p>{supportContent.content}</p>
+      <p className='max-w-lg mx-auto'>{supportContent.content}</p>
       <h2>Contact Information:</h2>
       <p>Company Address: {supportContent.contactInformation.companyAddress}</p>
       <p>

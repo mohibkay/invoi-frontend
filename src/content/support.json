@@ -34,5 +34,44 @@
       }
     ],
     "consentText": "By using our website and services, you consent to the terms outlined in this Privacy Policy."
+  },
+  "termsOfService": {
+    "version": "1.0",
+    "lastUpdated": "2023-12-08",
+    "effectiveDate": "2023-12-15",
+    "sections": [
+      {
+        "title": "Acceptance of Terms",
+        "content": "By using our services, you agree to comply with these Terms of Service."
+      },
+      {
+        "title": "User Conduct",
+        "content": "Users must adhere to guidelines and not engage in prohibited activities."
+      },
+      {
+        "title": "Intellectual Property",
+        "content": "Our platform's content and trademarks are protected by intellectual property laws."
+      },
+      {
+        "title": "Privacy Policy",
+        "content": "User data is handled according to our Privacy Policy, available at [Privacy Policy URL]."
+      },
+      {
+        "title": "Termination",
+        "content": "We reserve the right to terminate accounts for violations of the Terms of Service."
+      },
+      {
+        "title": "Limitation of Liability",
+        "content": "We are not liable for any damages or losses incurred while using our services."
+      },
+      {
+        "title": "Governing Law",
+        "content": "These terms are governed by and construed in accordance with the laws of [Your Jurisdiction]."
+      }
+    ],
+    "contactInformation": {
+      "email": "mhkmohib@gmail.com",
+      "address": "Pashan, Pune"
+    }
   }
 }
