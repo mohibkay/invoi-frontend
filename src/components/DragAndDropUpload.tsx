@@ -11,15 +11,11 @@ const fileTypes = ["image/jpeg", "image/jpg", "image/png", "application/pdf"];
 type Props = {
   handleSubmit: (event: React.FormEvent<HTMLFormElement>) => Promise<void>;
   setInvoiceDataArray: Dispatch<SetStateAction<[] | Invoice[]>>;
-  setDocumentUrls: Dispatch<SetStateAction<[] | string[]>>;
   invoiceDataArray: Invoice[];
-  documentUrls: string[];
 };
 export default function UploadComponent({
   handleSubmit,
   invoiceDataArray,
-  documentUrls,
-  setDocumentUrls,
   setInvoiceDataArray,
 }: Props) {
   const { toast } = useToast();
@@ -94,7 +90,6 @@ export default function UploadComponent({
 
       const { data } = response;
       setInvoiceDataArray([...invoiceDataArray, ...data.results]);
-      setDocumentUrls([...documentUrls, ...data.documentUrls]);
     } catch (error) {
       if (error instanceof Error) {
         console.error(error);
@@ -130,7 +125,7 @@ export default function UploadComponent({
           >
             <div
               className={cn(
-                "px-4 py-2 border-[1.5px] border-dashed dark:border-neutral-700 m-2 rounded-xl flex flex-col justify-start items-center hover:cursor-pointer",
+                "px-4 py-2 border-[1.5px] border-dashed dark:border-neutral-700 m-2 rounded-[8px] flex flex-col justify-start items-center hover:cursor-pointer",
                 dragOver && "border-blue-600 bg-blue-50",
                 isLoading &&
                   dragOver &&
