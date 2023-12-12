@@ -21,9 +21,7 @@ const Login = () => {
     store.set("token", token);
   }
 
-  const { data: user, error } = useGetUser();
-  console.log("🐬 ~ Login ~ error:", error);
-  console.log("🐬 ~ Login ~ user:", user);
+  const { data: user } = useGetUser();
 
   const googleAuth = () => {
     window.open(googleAuthUrl, "_self");
