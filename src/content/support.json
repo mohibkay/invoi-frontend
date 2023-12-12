@@ -3,13 +3,11 @@
     "title": "Support",
     "content": "Welcome to Invoi! We're here to assist you with any questions or concerns you may have. Please find our contact information below:",
     "contactInformation": {
-      "companyAddress": "HSR Sector 2, Bangalore",
-      "domesticTelephone": "8434317743"
+      "companyAddress": "HSR Sector 2, Bangalore"
     },
     "workingHours": "Monday to Friday: 9:00 AM - 6:00 PM IST",
     "contactChannels": {
-      "email": "mhkmohib@gmail.com",
-      "phone": "8434317743"
+      "email": "mhkmohib@gmail.com"
     }
   },
   "privacyPolicyPage": {
