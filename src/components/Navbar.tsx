@@ -1,26 +1,14 @@
-import store from "storejs";
-import { useQueryClient } from "@tanstack/react-query";
 import { ROUTES } from "@/lib/routes";
-import { useNavigate, Link } from "react-router-dom";
-import { clearUser } from "@/redux/features/userSlice";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { Link } from "react-router-dom";
+import { useAppSelector } from "@/redux/hooks";
 import { Button } from "./ui/button";
 import { Icons } from "./utils/Icons";
+import useLogout from "@/hooks/useLogout";
 
 const Navbar = () => {
-  const navigate = useNavigate();
-  const queryClient = useQueryClient();
-  const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
-
+  const handleLogout = useLogout();
   const { credits = 0 } = user.user || {};
-
-  const handleLogout = () => {
-    store.clear();
-    queryClient.clear();
-    dispatch(clearUser());
-    navigate(ROUTES.LOGIN);
-  };
 
   return (
     <nav className='flex justify-between items-baseline border-b shadow-sm px-4 py-2'>

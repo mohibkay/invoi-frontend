@@ -15,11 +15,10 @@ import {
 import Navbar from "@/components/Navbar";
 import { useGetUser } from "@/api/user";
 import { useAppDispatch } from "@/redux/hooks";
-import { setUser, clearUser } from "@/redux/features/userSlice";
-import { useLocation, useNavigate } from "react-router-dom";
+import { setUser } from "@/redux/features/userSlice";
+import { useLocation } from "react-router-dom";
 import { ROUTES } from "@/lib/routes";
-import { useQueryClient } from "@tanstack/react-query";
-import store from "storejs";
+import useLogout from "@/hooks/useLogout";
 
 const apiEndPoint = import.meta.env.VITE_BACKEND_BASE_URL;
 
@@ -27,24 +26,12 @@ function Dashboard() {
   const { toast } = useToast();
   const location = useLocation();
   const dispatch = useAppDispatch();
+  const handleLogout = useLogout();
   const isWelfarePage = location.pathname === ROUTES.WELFARE;
   const [invoiceDataArray, setInvoiceDataArray] = useState<Invoice[] | []>([]);
   const [isLoading, setIsLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const { data: user, refetch, isError } = useGetUser();
-
-  const navigate = useNavigate();
-  const queryClient = useQueryClient();
-  console.log("🐬 ~ Dashboard ~ isError:", isError);
-
-  console.log("dashboard rendering");
-
-  const handleLogout = () => {
-    store.clear();
-    queryClient.clear();
-    dispatch(clearUser());
-    navigate(ROUTES.LOGIN);
-  };
 
   useEffect(() => {
     if (user?.email) {
@@ -54,7 +41,6 @@ function Dashboard() {
 
   useEffect(() => {
     if (invoiceDataArray) {
-      console.log("refetching");
       refetch();
     }
   }, [invoiceDataArray, refetch]);
