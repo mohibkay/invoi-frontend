@@ -47,7 +47,7 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
   };
 
   return (
-    <div className='flex justify-center items-center mt-4'>
+    <div className='flex justify-center items-center mt-4 mb-4'>
       <Button disabled={isDownloading} onClick={downloadAndZipUrls}>
         {isDownloading && <Icons.spinner />}
         <span>{downloadZipBtn}</span>
