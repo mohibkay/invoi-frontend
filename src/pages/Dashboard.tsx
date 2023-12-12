@@ -17,6 +17,7 @@ import { useLocation } from "react-router-dom";
 import { ROUTES } from "@/lib/routes";
 import { useToast } from "@/components/ui/use-toast";
 import { Input } from "@/components/ui/input";
+import useLogout from "@/hooks/useLogout";
 
 const apiEndPoint = import.meta.env.VITE_BACKEND_BASE_URL;
 
@@ -24,18 +25,31 @@ function Dashboard() {
   const { toast } = useToast();
   const location = useLocation();
   const dispatch = useAppDispatch();
+  const handleLogout = useLogout();
   const isWelfarePage = location.pathname === ROUTES.WELFARE;
   const [invoiceDataArray, setInvoiceDataArray] = useState<Invoice[] | []>([]);
   const [isLoading, setIsLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const { data: user, refetch } = useGetUser();
+  const { data: user, refetch, isError } = useGetUser();
 
   useEffect(() => {
-    refetch();
     if (user?.email) {
       dispatch(setUser(user));
     }
-  }, [dispatch, invoiceDataArray, refetch, user]);
+  }, [dispatch, user]);
+
+  useEffect(() => {
+    if (invoiceDataArray) {
+      refetch();
+    }
+  }, [invoiceDataArray, refetch]);
+
+  useEffect(() => {
+    if (isError) {
+      handleLogout();
+    }
+  }, [isError, handleLogout]);
+
   const loading = isLoading ? <Spinner /> : "";
   const hasData = !!Object.entries(invoiceDataArray).length;
 
