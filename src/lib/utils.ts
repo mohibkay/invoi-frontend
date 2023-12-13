@@ -98,10 +98,10 @@ export const exportToCSV = (arrayofinvoices: ExportToCSVType) => {
 export const downloadGeneralExcel = (invoiceDataArray: Invoice[]) => {
   const sanitizedInvoiceList = invoiceDataArray.map((invoiceData) => {
     return {
-      vendor: invoiceData.vendor,
-      invoiceNumber: invoiceData.invoiceNumber,
-      date: invoiceData.date,
-      amount: invoiceData.amount,
+      Vendor: invoiceData.vendor,
+      "Invoice Number": invoiceData.invoiceNumber,
+      Date: invoiceData.date,
+      Amount: invoiceData.amount,
     };
   });
   return exportToCSV(sanitizedInvoiceList);
