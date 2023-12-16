@@ -133,6 +133,44 @@ export default function UploadComponent({
     }
   }, [fileQueue, isLoading, uploadFilesAndGetData]);
 
+  const onDocumentDragLeave = () => setDragOver(false);
+  const onDocumentDragOver = (e: DragEvent) => {
+    e.preventDefault();
+    setDragOver(true);
+  };
+
+  const onDocumentDrop = (event: DragEvent) => {
+    event.preventDefault();
+    setDragOver(false);
+    const { files } = event.dataTransfer;
+    if (!files || !files.length) return;
+
+    const selectedFiles = Array.from(files);
+
+    if (selectedFiles.some((file) => !fileTypes.includes(file.type))) {
+      return setFileDropError("Please provide pdf or image files only!");
+    }
+
+    setFileDropError("");
+    if (isLoading) {
+      queueFilesToProcessLater(files);
+      return;
+    }
+    uploadFilesAndGetData(files);
+  };
+
+  useEffect(() => {
+    document.addEventListener("dragover", onDocumentDragOver);
+    document.addEventListener("dragleave", onDocumentDragLeave);
+    document.addEventListener("drop", onDocumentDrop);
+
+    return () => {
+      document.removeEventListener("dragover", onDocumentDragOver);
+      document.removeEventListener("dragleave", onDocumentDragLeave);
+      document.removeEventListener("drop", onDocumentDrop);
+    };
+  }, []);
+
   return (
     <>
       <div className='dark:bg-neutral-800 mx-auto max-w-sm bg-white border dark:border-neutral-700 w-full rounded-xl'>
