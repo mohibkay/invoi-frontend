@@ -22,7 +22,6 @@ const Login = () => {
   }
 
   const { data: user } = useGetUser();
-  console.log("🐬 ~ Login ~ user:", user);
 
   const googleAuth = () => {
     window.open(googleAuthUrl, "_self");
@@ -36,8 +35,12 @@ const Login = () => {
   }, [dispatch, navigate, user]);
 
   return (
-    <div className='h-screen grid place-content-center'>
-      <Button variant='outline' onClick={googleAuth}>
+    <div className='flex-1 grid place-content-center'>
+      <Button
+        variant='outline'
+        className='hover:bg-primary/10'
+        onClick={googleAuth}
+      >
         <Icons.google width={"20px"} height={"20px"} />
         <p className={"pl-2"}>Sign in with google </p>
       </Button>

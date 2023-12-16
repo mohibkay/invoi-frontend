@@ -1,0 +1,114 @@
+{
+  "supportPage": {
+    "title": "Support",
+    "content": "Welcome to Invoi! We're here to assist you with any questions or concerns you may have. Please find our contact information below:",
+    "contactInformation": {
+      "companyAddress": "HSR Sector 2, Bangalore"
+    },
+    "workingHours": "Monday to Friday: 9:00 AM - 6:00 PM IST",
+    "contactChannels": {
+      "email": "mhkmohib@gmail.com"
+    }
+  },
+  "privacyPolicyPage": {
+    "title": "Privacy Policy",
+    "intro": "Welcome to Invoi! This Privacy Policy outlines how we collect, use, disclose, and safeguard your personal information when you use our website and services.",
+    "sections": [
+      {
+        "sectionTitle": "Information We Collect",
+        "content": "Invoices uploaded for processing are deleted after a day."
+      },
+      {
+        "sectionTitle": "Purpose of Information Use",
+        "content": "We upload the invoices to our servers for processing"
+      },
+      {
+        "sectionTitle": "Information Disclosure",
+        "content": "We do not sell, trade, or otherwise transfer your personal information to external parties"
+      },
+      {
+        "sectionTitle": "Information Security",
+        "content": "We implement reasonable security measures to protect your personal information"
+      }
+    ],
+    "consentText": "By using our website and services, you consent to the terms outlined in this Privacy Policy."
+  },
+  "termsOfService": {
+    "version": "1.0",
+    "lastUpdated": "2023-12-08",
+    "effectiveDate": "2023-12-15",
+    "sections": [
+      {
+        "title": "Acceptance of Terms",
+        "content": "By using our services, you agree to comply with these Terms of Service."
+      },
+      {
+        "title": "User Conduct",
+        "content": "Users must adhere to guidelines and not engage in prohibited activities."
+      },
+      {
+        "title": "Intellectual Property",
+        "content": "Our platform's content and trademarks are protected by intellectual property laws."
+      },
+      {
+        "title": "Privacy Policy",
+        "content": "User data is handled according to our Privacy Policy, available at https://invoi-one.vercel.app/privacy-policy."
+      },
+      {
+        "title": "Termination",
+        "content": "We reserve the right to terminate accounts for violations of the Terms of Service."
+      },
+      {
+        "title": "Limitation of Liability",
+        "content": "We are not liable for any damages or losses incurred while using our services."
+      },
+      {
+        "title": "Governing Law",
+        "content": "These terms are governed by and construed in accordance with the laws of [Your Jurisdiction]."
+      }
+    ],
+    "contactInformation": {
+      "email": "mhkmohib@gmail.com",
+      "address": "HSR Sector 2, Bangalore"
+    }
+  },
+  "privacyPolicy": {
+    "version": "1.0",
+    "lastUpdated": "2023-12-08",
+    "effectiveDate": "2023-12-15",
+    "intro": "Welcome to Invoi! This Privacy Policy outlines how we collect, use, disclose, and safeguard your personal information when you use our website and services.",
+    "sections": [
+      {
+        "sectionTitle": "Information We Collect",
+        "content": "We may collect the following personal information such as email, name"
+      },
+      {
+        "sectionTitle": "Purpose of Information Use",
+        "content": "We delete the invoices after 24 hours"
+      },
+      {
+        "sectionTitle": "Information Disclosure",
+        "content": "We do not sell, trade, or otherwise transfer your personal information to external parties."
+      },
+      {
+        "sectionTitle": "Information Security",
+        "content": "We implement reasonable security measures to protect your personal information."
+      }
+    ],
+    "consentText": "By using our website and services, you consent to the terms outlined in this Privacy Policy.",
+    "contactInformation": {
+      "email": "mhkmohib@gmail.com",
+      "address": "HSR Sector 2, Bangalore"
+    }
+  },
+  "cancellationPolicy": {
+    "version": "1.0",
+    "lastUpdated": "2023-12-08",
+    "effectiveDate": "2023-12-15",
+    "policyText": "We regret to inform you that our service does not offer cancellations or refunds. Once a subscription is purchased, it is considered final, and fees are non-refundable.",
+    "contactInformation": {
+      "email": "mhkmohib@gmail.com",
+      "address": "HSR Sector 2, Bangalore"
+    }
+  }
+}

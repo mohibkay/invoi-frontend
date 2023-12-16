@@ -98,10 +98,10 @@ export const exportToCSV = (arrayofinvoices: ExportToCSVType) => {
 export const downloadGeneralExcel = (invoiceDataArray: Invoice[]) => {
   const sanitizedInvoiceList = invoiceDataArray.map((invoiceData) => {
     return {
-      vendor: invoiceData.vendor,
-      invoiceNumber: invoiceData.invoiceNumber,
-      date: invoiceData.date,
-      amount: invoiceData.amount,
+      Vendor: invoiceData.vendor,
+      "Invoice Number": invoiceData.invoiceNumber,
+      Date: invoiceData.date,
+      Amount: invoiceData.amount,
     };
   });
   return exportToCSV(sanitizedInvoiceList);
@@ -155,4 +155,30 @@ export async function generateAndZipInvoices(arrayofinvoices: Invoice[]) {
   const fileName = `Invoice_${identifier}`;
   const content = await zip.generateAsync({ type: "blob" });
   saveAs(content, `${fileName}.zip`);
+}
+
+export function truncateFileName(fileName: string, maxCharacters: number = 28) {
+  const charactersAtEnd = 3;
+  if (fileName.length <= maxCharacters) {
+    return fileName;
+  }
+
+  const lastDotIndex = fileName.lastIndexOf(".");
+  const fileNameWithoutExtension =
+    lastDotIndex !== -1 ? fileName.slice(0, lastDotIndex) : fileName;
+  const fileExtension =
+    lastDotIndex !== -1 ? fileName.slice(lastDotIndex + 1) : "";
+
+  const truncatedName = fileNameWithoutExtension.substring(
+    0,
+    maxCharacters - charactersAtEnd
+  );
+  const truncatedFileName =
+    truncatedName +
+    "..." +
+    fileNameWithoutExtension.slice(-charactersAtEnd) +
+    "." +
+    fileExtension;
+
+  return truncatedFileName;
 }
