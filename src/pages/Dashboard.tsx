@@ -78,8 +78,7 @@ function Dashboard() {
             <div className='flex flex-col items-center justify-center mx-auto w-full mt-8'>
               <img src='/no-data.svg' alt='' />
               <p className='mt-4 text-center text-md'>
-                Upload your invoices to see the magic of automated data
-                extraction
+                Upload invoices for automated data extraction
               </p>
             </div>
           )}
