@@ -272,7 +272,7 @@ function Dashboard() {
     <div className='max-h-100vh overflow-y-hidden'>
       <Navbar />
       <main className='mt-6 flex max-w-7xl mx-auto'>
-        <div className='min-w-max mr-4 top-52'>
+        <div className='min-w-max mr-4 top-52 mt-32'>
           <UploadComponent
             invoiceDataArray={invoiceDataArray}
             handleSubmit={handleSubmit}
