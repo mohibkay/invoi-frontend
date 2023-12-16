@@ -11,7 +11,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useQueryClient } from "@tanstack/react-query";
 import { ROUTES } from "@/lib/routes";
 
-const paymentLink = import.meta.env.VITE_STRIPE_PAYMENT_LINK;
+const paymentLink = import.meta.env.VITE_PAYMENT_LINK;
 
 interface MyAccountProps {
   avatar: string;

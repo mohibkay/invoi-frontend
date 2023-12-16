@@ -12,8 +12,13 @@ const Navbar = () => {
       <Link to={ROUTES.DASHBOARD} className='text-3xl'>
         Invoi
       </Link>
-      <p className='text-lg mt-2'>Credits: {credits}</p>
-      <MyAccount avatar={avatar} />
+
+      {user.user && (
+        <>
+          <p className='text-lg mt-2'>Credits: {credits}</p>
+          <MyAccount avatar={avatar} />
+        </>
+      )}
     </nav>
   );
 };
