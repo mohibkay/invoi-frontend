@@ -156,3 +156,29 @@ export async function generateAndZipInvoices(arrayofinvoices: Invoice[]) {
   const content = await zip.generateAsync({ type: "blob" });
   saveAs(content, `${fileName}.zip`);
 }
+
+export function truncateFileName(fileName: string, maxCharacters: number = 28) {
+  const charactersAtEnd = 3;
+  if (fileName.length <= maxCharacters) {
+    return fileName;
+  }
+
+  const lastDotIndex = fileName.lastIndexOf(".");
+  const fileNameWithoutExtension =
+    lastDotIndex !== -1 ? fileName.slice(0, lastDotIndex) : fileName;
+  const fileExtension =
+    lastDotIndex !== -1 ? fileName.slice(lastDotIndex + 1) : "";
+
+  const truncatedName = fileNameWithoutExtension.substring(
+    0,
+    maxCharacters - charactersAtEnd
+  );
+  const truncatedFileName =
+    truncatedName +
+    "..." +
+    fileNameWithoutExtension.slice(-charactersAtEnd) +
+    "." +
+    fileExtension;
+
+  return truncatedFileName;
+}
