@@ -28,7 +28,7 @@ const InvoiceTable = ({ invoiceDataArray }: Props) => {
           ))}
         </TableRow>
       </TableHeader>
-      {invoiceDataArray.map((invoiceData) => (
+      {invoiceDataArray?.map((invoiceData) => (
         <TableBody key={invoiceData.id}>
           <TableRow>
             <TableCell className='font-medium'>
