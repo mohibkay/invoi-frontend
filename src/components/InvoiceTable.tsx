@@ -15,11 +15,14 @@ interface Props {
 
 const InvoiceTable = ({ invoiceDataArray }: Props) => {
   return (
-    <Table className='mt-4 max-w-5xl mx-auto'>
-      <TableHeader>
-        <TableRow>
+    <Table>
+      <TableHeader className='bg-white'>
+        <TableRow className='sticky top-0'>
           {HEADERS.map((header) => (
-            <TableHead key={header} className='text-center'>
+            <TableHead
+              key={header}
+              className='sticky top-0 text-center font-medium text-lg'
+            >
               {header}
             </TableHead>
           ))}
