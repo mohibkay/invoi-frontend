@@ -99,6 +99,7 @@ const Login = () => {
               </p>
             </div>
           </div>
+
           <div className='flex justify-center flex-col sm:flex-row items-start gap-4'>
             <Link
               className='inline-flex h-10 items-center justify-center rounded-md border border-gray-200 bg-white px-8 text-sm font-medium shadow-sm transition-colors hover:bg-gray-100 hover:text-gray-900 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:border-gray-800 dark:border-gray-800 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus-visible:ring-gray-300'
@@ -106,6 +107,34 @@ const Login = () => {
             >
               Contact Sales
             </Link>
+          </div>
+          <div className='flex flex-col items-center justify-center space-y-4 text-center mt-10'>
+            <div className='space-y-2'>
+              <div className='inline-block rounded-lg bg-gray-100 px-3 py-1 text-sm dark:bg-gray-800'>
+                Our Pricing
+              </div>
+              <h2 className='text-3xl font-bold tracking-tighter sm:text-5xl'>
+                Affordable and Efficient Pricing
+              </h2>
+              <p className='max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400'>
+                We offer simple and affordable pricing options to help you get
+                started.
+              </p>
+              <div className='mt-6 space-y-4'>
+                <div className='grid gap-1'>
+                  <h3 className='text-lg font-bold'>Free Plan</h3>
+                  <p className='text-sm text-gray-500 dark:text-gray-400'>
+                    Get 5 credits on new sign up.
+                  </p>
+                </div>
+                <div className='grid gap-1'>
+                  <h3 className='text-lg font-bold'>Paid Plan</h3>
+                  <p className='text-sm text-gray-500 dark:text-gray-400'>
+                    Get 100 credits for $10.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
