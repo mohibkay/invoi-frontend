@@ -135,7 +135,7 @@ export default function UploadComponent({
 
   return (
     <>
-      <div className='dark:bg-neutral-800 mx-auto max-w-sm bg-white border dark:border-neutral-700 w-full rounded-xl'>
+      <div className='dark:bg-neutral-800 mx-auto min-w-[400px] bg-white border dark:border-neutral-700 w-full rounded-xl'>
         <form encType='multipart/form-data' onSubmit={handleSubmit}>
           <label
             htmlFor='file'

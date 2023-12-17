@@ -54,27 +54,39 @@ function Dashboard() {
   };
 
   return (
-    <>
+    <div className='max-h-100vh overflow-y-hidden'>
       <Navbar />
-      <main className='mt-6'>
-        <UploadComponent
-          invoiceDataArray={invoiceDataArray}
-          handleSubmit={handleSubmit}
-          setInvoiceDataArray={setInvoiceDataArray}
-        />
-
-        {hasData && (
-          <>
-            <InvoiceTable invoiceDataArray={invoiceDataArray} />
+      <main className='mt-6 flex max-w-7xl mx-auto px-4'>
+        <div className='min-w-max mr-4 top-52 mt-12'>
+          <UploadComponent
+            invoiceDataArray={invoiceDataArray}
+            handleSubmit={handleSubmit}
+            setInvoiceDataArray={setInvoiceDataArray}
+          />
+          {hasData && (
             <ActionButtons
               invoiceDataArray={invoiceDataArray}
               downloadExcel={downloadExcel}
             />
-          </>
-        )}
+          )}
+        </div>
+
+        <div className='flex-grow overflow-y-scroll h-[calc(100vh-80.9px)] max-h-full'>
+          {invoiceDataArray.length ? (
+            <InvoiceTable invoiceDataArray={invoiceDataArray} />
+          ) : (
+            <div className='flex flex-col items-center justify-center mx-auto w-full mt-8'>
+              <img src='/no-data.svg' alt='' />
+              <p className='mt-4 text-center text-md'>
+                Upload your invoices to see the magic of automated data
+                extraction
+              </p>
+            </div>
+          )}
+        </div>
         <Toaster />
       </main>
-    </>
+    </div>
   );
 }
 

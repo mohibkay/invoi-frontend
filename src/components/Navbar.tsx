@@ -8,17 +8,22 @@ const Navbar = () => {
   const { credits = 0, avatar = "" } = user.user || {};
 
   return (
-    <nav className='flex justify-between items-center border-b shadow-sm px-4 py-2'>
-      <Link to={ROUTES.DASHBOARD} className='text-3xl'>
-        Invoi
-      </Link>
+    <nav className='border-b shadow-sm px-4 py-2'>
+      <div className='flex justify-between items-center max-w-7xl mx-auto'>
+        <Link to={ROUTES.DASHBOARD} className='text-3xl'>
+          Invoi
+        </Link>
 
-      {user.user && (
-        <>
-          <p className='text-lg mt-2'>Credits: {credits}</p>
-          <MyAccount avatar={avatar} />
-        </>
-      )}
+        {user.user && (
+          <div className='flex space-x-6'>
+            <p className='flex flex-col'>
+              <span className='text-xl font-medium -mb-0.5'>{credits}</span>
+              <span className='text-xs leading-none'>Credits</span>
+            </p>
+            <MyAccount avatar={avatar} />
+          </div>
+        )}
+      </div>
     </nav>
   );
 };
