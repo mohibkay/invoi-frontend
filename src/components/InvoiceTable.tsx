@@ -16,7 +16,7 @@ interface Props {
 const InvoiceTable = ({ invoiceDataArray }: Props) => {
   return (
     <Table>
-      <TableHeader className='sticky top-0 bg-white z-10'>
+      <TableHeader className='sticky top-0 bg-white'>
         <TableRow>
           {HEADERS.map((header) => (
             <TableHead key={header} className='text-center font-medium text-lg'>
@@ -25,9 +25,9 @@ const InvoiceTable = ({ invoiceDataArray }: Props) => {
           ))}
         </TableRow>
       </TableHeader>
-      {invoiceDataArray?.map((invoiceData) => (
-        <TableBody key={invoiceData.id}>
-          <TableRow>
+      <TableBody>
+        {invoiceDataArray?.map((invoiceData) => (
+          <TableRow key={invoiceData.id}>
             <TableCell className='font-medium'>
               {invoiceData?.invoiceNumber || "Not Found"}
             </TableCell>
@@ -37,8 +37,8 @@ const InvoiceTable = ({ invoiceDataArray }: Props) => {
             <TableCell>{invoiceData?.date || "Not Found"}</TableCell>
             <TableCell>{invoiceData?.amount || "Not Found"}</TableCell>
           </TableRow>
-        </TableBody>
-      ))}
+        ))}
+      </TableBody>
     </Table>
   );
 };
