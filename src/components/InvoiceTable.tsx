@@ -16,13 +16,10 @@ interface Props {
 const InvoiceTable = ({ invoiceDataArray }: Props) => {
   return (
     <Table>
-      <TableHeader className='bg-white'>
-        <TableRow className='sticky top-0'>
+      <TableHeader className='sticky top-0 bg-white z-10'>
+        <TableRow>
           {HEADERS.map((header) => (
-            <TableHead
-              key={header}
-              className='sticky top-0 text-center font-medium text-lg'
-            >
+            <TableHead key={header} className='text-center font-medium text-lg'>
               {header}
             </TableHead>
           ))}
