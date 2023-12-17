@@ -50,7 +50,7 @@ const Login = () => {
                 extraction service. Focus on your core business while we handle
                 the data extraction from your invoices.
               </p>
-              <div>
+              <div className='mx-auto'>
                 <Button onClick={googleAuth}>
                   <Icons.google width={"20px"} height={"20px"} />
                   <p className={"pl-2"}>Sign in with google </p>
