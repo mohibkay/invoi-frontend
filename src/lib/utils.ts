@@ -157,28 +157,16 @@ export async function generateAndZipInvoices(arrayofinvoices: Invoice[]) {
   saveAs(content, `${fileName}.zip`);
 }
 
-export function truncateFileName(fileName: string, maxCharacters: number = 28) {
-  const charactersAtEnd = 3;
-  if (fileName.length <= maxCharacters) {
-    return fileName;
+export function truncateString(filename: string, maxLength = 30) {
+  const lastChars = 3;
+  if (filename.length <= maxLength + 4) {
+    return filename;
   }
 
-  const lastDotIndex = fileName.lastIndexOf(".");
-  const fileNameWithoutExtension =
-    lastDotIndex !== -1 ? fileName.slice(0, lastDotIndex) : fileName;
-  const fileExtension =
-    lastDotIndex !== -1 ? fileName.slice(lastDotIndex + 1) : "";
+  const extensionIndex = filename.lastIndexOf(".");
+  const name = filename.slice(0, extensionIndex);
+  const extension = filename.slice(extensionIndex);
 
-  const truncatedName = fileNameWithoutExtension.substring(
-    0,
-    maxCharacters - charactersAtEnd
-  );
-  const truncatedFileName =
-    truncatedName +
-    "..." +
-    fileNameWithoutExtension.slice(-charactersAtEnd) +
-    "." +
-    fileExtension;
-
-  return truncatedFileName;
+  const truncatedName = name.slice(0, maxLength - lastChars - extension.length);
+  return `${truncatedName}...${name.slice(-lastChars)}${extension}`;
 }

@@ -1,6 +1,6 @@
 import Spinner from "@/components/utils/spinner";
 import axios from "axios";
-import { cn, truncateFileName } from "@/lib/utils";
+import { cn, truncateString } from "@/lib/utils";
 import { UploadCloud, DownloadCloud } from "lucide-react";
 import {
   ChangeEvent,
@@ -216,7 +216,7 @@ export default function UploadComponent({
                   <div className='flex flex-row justify-start items-center gap-2'>
                     <div className='flex flex-col justify-start items-start gap-1'>
                       <div className='flex flex-row justify-start items-center gap-2'>
-                        <p>{truncateFileName(file.name)}</p>
+                        <p>{truncateString(file.name)}</p>
                       </div>
                     </div>
                   </div>
