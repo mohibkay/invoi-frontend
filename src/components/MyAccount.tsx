@@ -6,6 +6,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import useLogout from "@/hooks/useLogout";
+import { Icons } from "./utils/Icons";
 const paymentLink = import.meta.env.VITE_PAYMENT_LINK;
 
 interface MyAccountProps {
@@ -24,7 +25,9 @@ const MyAccount = ({ avatar }: MyAccountProps) => {
       <DropdownMenuTrigger>
         <Avatar>
           <AvatarImage src={avatar} />
-          <AvatarFallback>CN</AvatarFallback>
+          <AvatarFallback>
+            <Icons.user />
+          </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
