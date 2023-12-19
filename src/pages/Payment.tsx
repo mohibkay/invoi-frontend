@@ -1,60 +1,45 @@
-import { useState, useEffect } from "react";
-import { loadStripe } from "@stripe/stripe-js";
-import { Elements } from "@stripe/react-stripe-js";
-
-import "./App.css";
-import CheckoutForm from "@/components/CheckoutForm";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import { Elements } from "@stripe/react-stripe-js";
+import { Stripe, loadStripe } from "@stripe/stripe-js";
+import CheckoutForm from "@/components/CheckoutForm";
 
-// Make sure to call loadStripe outside of a component’s render to avoid
-// recreating the Stripe object on every render.
-// This is your test publishable API key.
-const stripePromise = loadStripe(
-  "pk_test_51OO0msSAFOELC9LZ8zuptMQkSdMUKhiA285LvaRUlV64NvOXyCnReGhXnkw9I8mYbQeXhgw8MppqmcPR6KlDXMVO00XV0yDQr4"
-);
-
-export default function Payment() {
+function Payment() {
+  const [stripePromise, setStripePromise] = useState<Promise<Stripe | null>>(
+    () => Promise.resolve(null)
+  );
   const [clientSecret, setClientSecret] = useState("");
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.post(
-          `${import.meta.env.VITE_BACKEND_BASE_URL}/create-payment-intent`,
-          {},
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-
-        // Assuming your response structure is like { clientSecret: "someSecret" }
-        setClientSecret(response.data.clientSecret);
-      } catch (error) {
-        // Handle errors here
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
+    axios
+      .get(`${import.meta.env.VITE_BACKEND_BASE_URL}/config`)
+      .then(async (response) => {
+        const { publishableKey } = response.data;
+        setStripePromise(loadStripe(publishableKey));
+      });
   }, []);
 
-  const appearance = {
-    theme: "stripe",
-  };
-  const options = {
-    clientSecret,
-    appearance,
-  };
+  useEffect(() => {
+    axios
+      .post(
+        `${import.meta.env.VITE_BACKEND_BASE_URL}/create-payment-intent`,
+        {}
+      )
+      .then(async (response) => {
+        const { clientSecret } = response.data;
+        setClientSecret(clientSecret);
+      });
+  }, []);
 
   return (
-    <div className='App'>
-      {clientSecret && (
-        <Elements options={options} stripe={stripePromise}>
+    <>
+      {clientSecret && stripePromise && (
+        <Elements stripe={stripePromise} options={{ clientSecret }}>
           <CheckoutForm />
         </Elements>
       )}
-    </div>
+    </>
   );
 }
+
+export default Payment;
