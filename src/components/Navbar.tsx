@@ -4,6 +4,7 @@ import { useAppSelector } from "@/redux/hooks";
 import MyAccount from "./MyAccount";
 import { Button } from "./ui/button";
 import { useNavigate } from "react-router-dom";
+import { Icons } from "./utils/Icons";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -27,7 +28,10 @@ const Navbar = () => {
               <span className='text-xl font-medium -mb-0.5'>{credits}</span>
               <span className='text-xs leading-none'>Credits</span>
             </p>
-            <Button onClick={handlePayment}>Upgrade to Pro</Button>
+            <Button size='sm' className='space-x-1' onClick={handlePayment}>
+              <Icons.sparkles />
+              <span>Upgrade</span>
+            </Button>
             <MyAccount avatar={avatar} />
           </div>
         )}
