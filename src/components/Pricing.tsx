@@ -38,14 +38,14 @@ const Pricing = () => {
           <Card>
             <CardHeader>
               <CardTitle>Basic</CardTitle>
-              <Badge>33 credits</Badge>
+              <Badge>30 credits</Badge>
             </CardHeader>
             <CardContent>
-              <p>Get 33 credits for only ₹99</p>
+              <p>Get 30 credits for only ₹99</p>
             </CardContent>
             <CardFooter>
               <Button>
-                <Link to={"https://mohibkay.gumroad.com/l/invoi-33"}>
+                <Link to={"https://mohibkay.gumroad.com/l/invoi-30"}>
                   Upgrade
                 </Link>
               </Button>
