@@ -2,6 +2,7 @@ import { ROUTES } from "@/lib/routes";
 import { Link } from "react-router-dom";
 import { useAppSelector } from "@/redux/hooks";
 import MyAccount from "./MyAccount";
+import Pricing from "./Pricing";
 
 const Navbar = () => {
   const user = useAppSelector((state) => state.user);
@@ -20,6 +21,7 @@ const Navbar = () => {
               <span className='text-xl font-medium -mb-0.5'>{credits}</span>
               <span className='text-xs leading-none'>Credits</span>
             </p>
+            <Pricing />
             <MyAccount avatar={avatar} />
           </div>
         )}
