@@ -6,8 +6,8 @@ import Pricing from "./Pricing";
 
 const Navbar = () => {
   const user = useAppSelector((state) => state.user);
-  const { credits = 0, avatar = "", subscriptionType } = user.user || {};
-  const showPricing = subscriptionType === "FREE";
+  const { credits = 0, avatar = "" } = user.user || {};
+  const showPricing = credits <= 5;
 
   return (
     <nav className='border-b shadow-sm px-4 py-2'>
