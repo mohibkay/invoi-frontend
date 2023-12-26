@@ -20,7 +20,9 @@ const Navbar = () => {
           <div className='flex space-x-6'>
             <p className='flex flex-col'>
               <span className='text-xl font-medium -mb-0.5'>{credits}</span>
-              <span className='text-xs leading-none'>Credits</span>
+              <span className='text-xs leading-none'>
+                {credits === 1 ? "Credit" : "Credits"}
+              </span>
             </p>
             {showPricing && <Pricing />}
             <MyAccount avatar={avatar} />
