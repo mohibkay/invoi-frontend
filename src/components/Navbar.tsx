@@ -6,7 +6,8 @@ import Pricing from "./Pricing";
 
 const Navbar = () => {
   const user = useAppSelector((state) => state.user);
-  const { credits = 0, avatar = "" } = user.user || {};
+  const { credits = 0, avatar = "", subscriptionType } = user.user || {};
+  const showPricing = subscriptionType === "FREE";
 
   return (
     <nav className='border-b shadow-sm px-4 py-2'>
@@ -21,7 +22,7 @@ const Navbar = () => {
               <span className='text-xl font-medium -mb-0.5'>{credits}</span>
               <span className='text-xs leading-none'>Credits</span>
             </p>
-            <Pricing />
+            {showPricing && <Pricing />}
             <MyAccount avatar={avatar} />
           </div>
         )}
