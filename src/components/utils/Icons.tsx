@@ -85,4 +85,21 @@ export const Icons = {
       <path d='M20 21a8 8 0 00-16 0'></path>
     </svg>
   ),
+  sparkles: (props: LucideProps) => (
+    <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="16"
+    height="16"
+    fill="none"
+    stroke="currentColor"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    strokeWidth="2"
+    className="lucide lucide-zap"
+    viewBox="0 0 24 24"
+    {...props}
+  >
+    <path d="M13 2L3 14 12 14 11 22 21 10 12 10 13 2z"></path>
+  </svg>
+  )
 };

@@ -11,6 +11,7 @@ import Layout from "./components/layout";
 import TermsOfServicePage from "./pages/TermsOfService";
 import PrivacyPolicyPage from "./pages/PrivacyPolicy";
 import CancellationPolicyPage from "./pages/Cancellation";
+import Payment from "./pages/Payment";
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 
 function App() {
@@ -31,6 +32,16 @@ function App() {
         <Suspense fallback={<PageSpinner />}>
           <RequireAuth>
             <Dashboard />
+          </RequireAuth>
+        </Suspense>
+      ),
+    },
+    {
+      path: ROUTES.CHECKOUT,
+      element: (
+        <Suspense fallback={<PageSpinner />}>
+          <RequireAuth>
+            <Payment />
           </RequireAuth>
         </Suspense>
       ),
