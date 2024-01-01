@@ -11,6 +11,7 @@ import Layout from "./components/layout";
 import TermsOfServicePage from "./pages/TermsOfService";
 import PrivacyPolicyPage from "./pages/PrivacyPolicy";
 import CancellationPolicyPage from "./pages/Cancellation";
+import ShippingPage from "./pages/Shipping";
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 
 function App() {
@@ -83,6 +84,16 @@ function App() {
         <Layout>
           <Suspense fallback={<PageSpinner />}>
             <CancellationPolicyPage />
+          </Suspense>
+        </Layout>
+      ),
+    },
+    {
+      path: ROUTES.SHIPPING,
+      element: (
+        <Layout>
+          <Suspense fallback={<PageSpinner />}>
+            <ShippingPage />
           </Suspense>
         </Layout>
       ),

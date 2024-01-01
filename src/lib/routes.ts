@@ -6,4 +6,5 @@ export const ROUTES = {
   TERMS: "/terms-of-service",
   PRIVACY: "/privacy-policy",
   CANCELLATION: "/cancellation",
+  SHIPPING: "/shipping",
 };
