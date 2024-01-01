@@ -9,9 +9,12 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Icons } from "./utils/Icons";
-import { Link } from "react-router-dom";
 
-const Pricing = () => {
+const Pricing = ({
+  checkoutHandler,
+}: {
+  checkoutHandler: (name: string, amount: number) => void;
+}) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -44,10 +47,8 @@ const Pricing = () => {
               <p>Get 30 credits for only ₹99</p>
             </CardContent>
             <CardFooter>
-              <Button>
-                <Link to={"https://mohibkay.gumroad.com/l/invoi-30"}>
-                  Upgrade
-                </Link>
+              <Button onClick={() => checkoutHandler("30 Credits", 99)}>
+                Upgrade
               </Button>
             </CardFooter>
           </Card>
@@ -60,10 +61,8 @@ const Pricing = () => {
               <p>Get 100 credits for only ₹849</p>
             </CardContent>
             <CardFooter>
-              <Button>
-                <Link to={"https://mohibkay.gumroad.com/l/invoi-100"}>
-                  Upgrade
-                </Link>
+              <Button onClick={() => checkoutHandler("100 Credits", 849)}>
+                Upgrade
               </Button>
             </CardFooter>
           </Card>
