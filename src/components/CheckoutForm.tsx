@@ -1,8 +1,13 @@
 import { PaymentElement } from "@stripe/react-stripe-js";
 import { useState } from "react";
 import { useStripe, useElements } from "@stripe/react-stripe-js";
+import axios from "axios";
 
-export default function CheckoutForm() {
+export default function CheckoutForm({
+  clientSecret,
+}: {
+  clientSecret: string;
+}) {
   const stripe = useStripe();
   const elements = useElements();
   const [message, setMessage] = useState<string | null | undefined>(null);
@@ -15,17 +20,38 @@ export default function CheckoutForm() {
       return;
     }
 
-    setIsProcessing(true);
+    const { error: submitError } = await elements.submit();
 
-    const { error } = await stripe.confirmPayment({
+    if (submitError) {
+      setMessage(submitError.message);
+      return;
+    }
+
+    setIsProcessing(true);
+    console.log("clientSecret", clientSecret);
+
+    const { error: error1 } = await stripe.confirmPayment({
       elements,
+      clientSecret: clientSecret,
       confirmParams: {
-        return_url: `${window.location.origin}`,
+        payment_method_data: {
+          billing_details: {
+            name: "Jenny Rosen",
+            address: {
+              line1: "510 Townsend St",
+              postal_code: "402301",
+              city: "mahad",
+              state: "maharashtra",
+              country: "IN",
+            },
+          },
+        },
+        return_url: "http://localhost:5173/",
       },
     });
 
-    if (error.type === "card_error" || error.type === "validation_error") {
-      setMessage(error.message);
+    if (error1.type === "card_error" || error1.type === "validation_error") {
+      setMessage(error1.message);
     } else {
       setMessage("An unexpected error occurred.");
     }

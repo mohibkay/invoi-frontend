@@ -31,11 +31,22 @@ function Payment() {
       });
   }, []);
 
+  const options = {
+    mode: "payment",
+    amount: 84900,
+    currency: "inr",
+    // Fully customizable with appearance API.
+    appearance: {
+      theme: "stripe",
+      locale: "auto",
+    },
+  };
+
   return (
     <>
       {clientSecret && stripePromise && (
-        <Elements stripe={stripePromise} options={{ clientSecret }}>
-          <CheckoutForm />
+        <Elements stripe={stripePromise} options={options}>
+          <CheckoutForm clientSecret={clientSecret} />
         </Elements>
       )}
     </>
