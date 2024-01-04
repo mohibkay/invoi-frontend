@@ -7,11 +7,13 @@ import {
 } from "@/components/ui/dialog";
 
 type PricingSuccessProps = {
+  creditsAwarded: number;
   showPricingSuccess: boolean;
   setShowPricingSuccess: (value: boolean) => void;
 };
 
 const PricingSuccess = ({
+  creditsAwarded,
   showPricingSuccess,
   setShowPricingSuccess,
 }: PricingSuccessProps) => {
@@ -29,7 +31,7 @@ const PricingSuccess = ({
             Congratulations 🥳
           </DialogTitle>
           <DialogDescription className='text-center text-2xl'>
-            You have got 100 Invoi credits
+            You have got {creditsAwarded} Invoi credits
           </DialogDescription>
         </DialogHeader>
       </DialogContent>

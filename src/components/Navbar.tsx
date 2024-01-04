@@ -8,6 +8,7 @@ import { useGetUser } from "@/api/user";
 import useRazorpay from "react-razorpay";
 import { useState } from "react";
 import PricingSuccess from "./PaymentSuccess";
+import { CreditEnum } from "@/lib/constants";
 
 const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL;
 const razorpayKey = import.meta.env.VITE_RAZORPAY_KEY;
@@ -15,6 +16,7 @@ const razorpayKey = import.meta.env.VITE_RAZORPAY_KEY;
 const Navbar = () => {
   const { refetch } = useGetUser();
   const [Razorpay] = useRazorpay();
+  const [creditsAwarded, setCreditsAwarded] = useState(0);
   const [showPricingDialog, setShowPricingDialog] = useState(false);
   const [showPricingSuccess, setShowPricingSuccess] = useState(false);
   const user = useAppSelector((state) => state.user);
@@ -61,8 +63,10 @@ const Navbar = () => {
           );
           console.log("🐬 ~ checkoutHandler ~ result:", result);
 
+          const amount = order.amount / 100;
           if (result.data.success) {
             refetch();
+            setCreditsAwarded(CreditEnum[amount as keyof typeof CreditEnum]);
             setShowPricingSuccess(true);
           }
         } catch (error) {
@@ -139,6 +143,7 @@ const Navbar = () => {
       </nav>
       {showPricingSuccess && (
         <PricingSuccess
+          creditsAwarded={creditsAwarded}
           showPricingSuccess={showPricingSuccess}
           setShowPricingSuccess={setShowPricingSuccess}
         />
