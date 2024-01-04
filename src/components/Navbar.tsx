@@ -7,6 +7,7 @@ import axios from "@/api/axios.ts";
 import { useGetUser } from "@/api/user";
 import useRazorpay from "react-razorpay";
 import { useState } from "react";
+import PricingSuccess from "./PaymentSuccess";
 
 const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL;
 const razorpayKey = import.meta.env.VITE_RAZORPAY_KEY;
@@ -15,6 +16,7 @@ const Navbar = () => {
   const { refetch } = useGetUser();
   const [Razorpay] = useRazorpay();
   const [showPricingDialog, setShowPricingDialog] = useState(false);
+  const [showPricingSuccess, setShowPricingSuccess] = useState(false);
   const user = useAppSelector((state) => state.user);
 
   const {
@@ -61,6 +63,7 @@ const Navbar = () => {
 
           if (result.data.success) {
             refetch();
+            setShowPricingSuccess(true);
           }
         } catch (error) {
           console.error("Error during payment verification:", error);
@@ -107,32 +110,40 @@ const Navbar = () => {
   };
 
   return (
-    <nav className='border-b shadow-sm px-4 py-2'>
-      <div className='flex justify-between items-center max-w-7xl mx-auto'>
-        <Link to={ROUTES.DASHBOARD} className='text-3xl'>
-          Invoi
-        </Link>
+    <>
+      <nav className='border-b shadow-sm px-4 py-2'>
+        <div className='flex justify-between items-center max-w-7xl mx-auto'>
+          <Link to={ROUTES.DASHBOARD} className='text-3xl'>
+            Invoi
+          </Link>
 
-        {user.user && (
-          <div className='flex space-x-6'>
-            <p className='flex flex-col'>
-              <span className='text-xl font-medium -mb-0.5'>{credits}</span>
-              <span className='text-xs leading-none'>
-                {credits === 1 ? "Credit" : "Credits"}
-              </span>
-            </p>
-            {showPricing && (
-              <Pricing
-                showPricingDialog={showPricingDialog}
-                setShowPricingDialog={setShowPricingDialog}
-                checkoutHandler={checkoutHandler}
-              />
-            )}
-            <MyAccount avatar={avatar} />
-          </div>
-        )}
-      </div>
-    </nav>
+          {user.user && (
+            <div className='flex space-x-6'>
+              <p className='flex flex-col'>
+                <span className='text-xl font-medium -mb-0.5'>{credits}</span>
+                <span className='text-xs leading-none'>
+                  {credits === 1 ? "Credit" : "Credits"}
+                </span>
+              </p>
+              {showPricing && (
+                <Pricing
+                  showPricingDialog={showPricingDialog}
+                  setShowPricingDialog={setShowPricingDialog}
+                  checkoutHandler={checkoutHandler}
+                />
+              )}
+              <MyAccount avatar={avatar} />
+            </div>
+          )}
+        </div>
+      </nav>
+      {showPricingSuccess && (
+        <PricingSuccess
+          showPricingSuccess={showPricingSuccess}
+          setShowPricingSuccess={setShowPricingSuccess}
+        />
+      )}
+    </>
   );
 };
 
