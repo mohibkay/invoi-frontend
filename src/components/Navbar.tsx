@@ -24,7 +24,9 @@ const Navbar = () => {
     const {
       data: { order },
     } = await axios.post(`${backendUrl}/api/checkout`, { amount });
-    console.log("🐬 ~ checkoutHandler ~ payment:", order);
+    console.log("🐬 ~ checkoutHandler ~ order:", order);
+    order.id;
+    console.log("🐬 ~ checkoutHandler ~ order.id:", order.id);
 
     const options = {
       key: razorpayKey,
@@ -34,10 +36,30 @@ const Navbar = () => {
       description: "Test Transaction",
       image: "public/favicon.ico",
       order_id: order.id,
-      callback_url: "http://localhost:3000/api/payment-verification",
+      handler: async (response: {
+        razorpay_payment_id: string;
+        razorpay_order_id: string;
+        razorpay_signature: string;
+      }) => {
+        const data = {
+          razorpayPaymentId: response.razorpay_payment_id,
+          razorpayOrderId: response.razorpay_order_id,
+          razorpaySignature: response.razorpay_signature,
+          orderAmount: order.amount,
+        };
+        console.log("🐬 ~ checkoutHandler ~ options.response:", response);
+
+        const result = await axios.post(
+          "http://localhost:3000/api/payment-verification",
+          data
+        );
+        console.log("🐬 ~ checkoutHandler ~ result:", result);
+        console.log("congratulation emoji");
+      },
       prefill: {
         name: fullName,
         email,
+        contact: "9999999999",
       },
       notes: {
         address: "Razorpay Corporate Office",
@@ -46,19 +68,22 @@ const Navbar = () => {
         color: "#0F172A",
       },
     };
+
     const rzp1 = new window.Razorpay(options);
     rzp1.open();
+    /*
     rzp1.on("payment.failed", function (response) {
       console.log("🐬 ~ response:", response);
 
-      // alert(response.error.code);
-      // alert(response.error.description);
-      // alert(response.error.source);
-      // alert(response.error.step);
-      // alert(response.error.reason);
-      // alert(response.error.metadata.order_id);
-      // alert(response.error.metadata.payment_id);
+      console.log(response.error.code);
+      console.log(response.error.description);
+      console.log(response.error.source);
+      console.log(response.error.step);
+      console.log(response.error.reason);
+      console.log(response.error.metadata.order_id);
+      console.log(response.error.metadata.payment_id);
     });
+    */
   };
 
   return (
