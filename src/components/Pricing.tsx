@@ -11,12 +11,22 @@ import { Badge } from "@/components/ui/badge";
 import { Icons } from "./utils/Icons";
 
 const Pricing = ({
+  showPricingDialog,
+  setShowPricingDialog,
   checkoutHandler,
 }: {
   checkoutHandler: (amount: number) => void;
+  showPricingDialog: boolean;
+  setShowPricingDialog: (value: boolean) => void;
 }) => {
+  const closePricingDialogWithADelay = () => {
+    setTimeout(() => {
+      setShowPricingDialog(false);
+    }, 600);
+  };
+
   return (
-    <Dialog>
+    <Dialog open={showPricingDialog} onOpenChange={setShowPricingDialog}>
       <DialogTrigger asChild>
         <Button size='sm' className='space-x-1'>
           <Icons.sparkles />
@@ -47,7 +57,14 @@ const Pricing = ({
               <p>Get 30 credits for only ₹99</p>
             </CardContent>
             <CardFooter>
-              <Button onClick={() => checkoutHandler(99)}>Upgrade</Button>
+              <Button
+                onClick={() => {
+                  checkoutHandler(99);
+                  closePricingDialogWithADelay();
+                }}
+              >
+                Upgrade
+              </Button>
             </CardFooter>
           </Card>
           <Card>
@@ -59,7 +76,14 @@ const Pricing = ({
               <p>Get 100 credits for only ₹849</p>
             </CardContent>
             <CardFooter>
-              <Button onClick={() => checkoutHandler(849)}>Upgrade</Button>
+              <Button
+                onClick={() => {
+                  checkoutHandler(849);
+                  closePricingDialogWithADelay();
+                }}
+              >
+                Upgrade
+              </Button>
             </CardFooter>
           </Card>
         </div>

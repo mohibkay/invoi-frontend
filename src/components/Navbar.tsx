@@ -6,6 +6,7 @@ import Pricing from "./Pricing";
 import axios from "@/api/axios.ts";
 import { useGetUser } from "@/api/user";
 import useRazorpay from "react-razorpay";
+import { useState } from "react";
 
 const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL;
 const razorpayKey = import.meta.env.VITE_RAZORPAY_KEY;
@@ -13,6 +14,7 @@ const razorpayKey = import.meta.env.VITE_RAZORPAY_KEY;
 const Navbar = () => {
   const { refetch } = useGetUser();
   const [Razorpay] = useRazorpay();
+  const [showPricingDialog, setShowPricingDialog] = useState(false);
   const user = useAppSelector((state) => state.user);
 
   const {
@@ -50,13 +52,19 @@ const Navbar = () => {
           orderAmount: order.amount,
         };
 
-        const result = await axios.post(
-          `${backendUrl}/api/payment-verification`,
-          data
-        );
-        console.log("🐬 ~ checkoutHandler ~ result:", result);
-        console.log("congratulation emoji");
-        refetch();
+        try {
+          const result = await axios.post(
+            `${backendUrl}/api/payment-verification`,
+            data
+          );
+          console.log("🐬 ~ checkoutHandler ~ result:", result);
+
+          if (result.data.success) {
+            refetch();
+          }
+        } catch (error) {
+          console.error("Error during payment verification:", error);
+        }
       },
       prefill: {
         name: fullName,
@@ -113,7 +121,13 @@ const Navbar = () => {
                 {credits === 1 ? "Credit" : "Credits"}
               </span>
             </p>
-            {showPricing && <Pricing checkoutHandler={checkoutHandler} />}
+            {showPricing && (
+              <Pricing
+                showPricingDialog={showPricingDialog}
+                setShowPricingDialog={setShowPricingDialog}
+                checkoutHandler={checkoutHandler}
+              />
+            )}
             <MyAccount avatar={avatar} />
           </div>
         )}
