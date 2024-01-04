@@ -49,7 +49,6 @@ const Navbar = () => {
           razorpaySignature: response.razorpay_signature,
           orderAmount: order.amount,
         };
-        console.log("🐬 ~ checkoutHandler ~ options.response:", response);
 
         const result = await axios.post(
           "http://localhost:3000/api/payment-verification",
@@ -62,10 +61,9 @@ const Navbar = () => {
       prefill: {
         name: fullName,
         email,
-        contact: "9999999999",
       },
       notes: {
-        address: "Razorpay Corporate Office",
+        address: "Invoi App Office",
       },
       theme: {
         color: "#0F172A",
@@ -74,19 +72,30 @@ const Navbar = () => {
 
     const rzp1 = new Razorpay(options);
     rzp1.open();
-    /*
-    rzp1.on("payment.failed", function (response) {
-      console.log("🐬 ~ response:", response);
-
-      console.log(response.error.code);
-      console.log(response.error.description);
-      console.log(response.error.source);
-      console.log(response.error.step);
-      console.log(response.error.reason);
-      console.log(response.error.metadata.order_id);
-      console.log(response.error.metadata.payment_id);
-    });
-    */
+    rzp1.on(
+      "payment.failed",
+      function (response: {
+        error: {
+          code: string;
+          description: string;
+          source: string;
+          step: string;
+          reason: string;
+          metadata: {
+            order_id: string;
+            payment_id: string;
+          };
+        };
+      }) {
+        console.log(response.error.code);
+        console.log(response.error.description);
+        console.log(response.error.source);
+        console.log(response.error.step);
+        console.log(response.error.reason);
+        console.log(response.error.metadata.order_id);
+        console.log(response.error.metadata.payment_id);
+      }
+    );
   };
 
   return (
