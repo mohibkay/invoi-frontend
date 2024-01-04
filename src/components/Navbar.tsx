@@ -3,15 +3,12 @@ import { Link } from "react-router-dom";
 import { useAppSelector } from "@/redux/hooks";
 import MyAccount from "./MyAccount";
 import Pricing from "./Pricing";
-import useRazorpay from "react-razorpay";
 import axios from "@/api/axios.ts";
 
 const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL;
 const razorpayKey = import.meta.env.VITE_RAZORPAY_KEY;
-const currentHost = window.location.host;
 
 const Navbar = () => {
-  const [Razorpay] = useRazorpay();
   const user = useAppSelector((state) => state.user);
   const {
     credits = 0,
@@ -26,7 +23,7 @@ const Navbar = () => {
   const checkoutHandler = async (name: string, amount: number) => {
     const {
       data: { order },
-    } = await axios.post(`${backendUrl}/payment/checkout`, { name, amount });
+    } = await axios.post(`${backendUrl}/api/checkout`, { amount });
     console.log("🐬 ~ checkoutHandler ~ payment:", order);
 
     const options = {
@@ -36,31 +33,8 @@ const Navbar = () => {
       name: "Invoi App",
       description: "Test Transaction",
       image: "public/favicon.ico",
-      order_id: order.order_id,
-      // callback_url: "http://localhost:3000/payment/verify",
-      handler: function (response: any) {
-        console.log(response.razorpay_payment_id);
-        console.log(response.razorpay_order_id);
-        console.log(response.razorpay_signature);
-      },
-
-      // handler: function (response: any) {
-      //   console.log("🐬 ~ response:", response);
-      //   const body = {
-      //     ...response,
-      //   };
-
-      // const validateRes = await axios.post(
-      //   `${backendUrl}/payment/verify`,
-      //   body,
-      //   {
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //   }
-      // );
-      // console.log("🐬 ~ validateRes:", validateRes);
-      // },
+      order_id: order.id,
+      callback_url: "http://localhost:3000/api/payment-verification",
       prefill: {
         name: fullName,
         email,
@@ -72,7 +46,7 @@ const Navbar = () => {
         color: "#0F172A",
       },
     };
-    const rzp1 = new Razorpay(options);
+    const rzp1 = new window.Razorpay(options);
     rzp1.open();
     rzp1.on("payment.failed", function (response) {
       console.log("🐬 ~ response:", response);
