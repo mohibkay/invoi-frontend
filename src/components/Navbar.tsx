@@ -51,7 +51,7 @@ const Navbar = () => {
         };
 
         const result = await axios.post(
-          "http://localhost:3000/api/payment-verification",
+          `${backendUrl}/api/payment-verification`,
           data
         );
         console.log("🐬 ~ checkoutHandler ~ result:", result);
