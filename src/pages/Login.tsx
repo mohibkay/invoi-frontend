@@ -122,15 +122,21 @@ const Login = () => {
               </p>
               <div className='mt-6 space-y-4'>
                 <div className='grid gap-1'>
-                  <h3 className='text-lg font-bold'>Free Plan</h3>
+                  <h3 className='text-lg font-bold'>Starter Plan</h3>
                   <p className='text-sm text-gray-500 dark:text-gray-400'>
                     Get 5 credits on new sign up.
                   </p>
                 </div>
                 <div className='grid gap-1'>
-                  <h3 className='text-lg font-bold'>Paid Plan</h3>
+                  <h3 className='text-lg font-bold'>Basic Plan</h3>
                   <p className='text-sm text-gray-500 dark:text-gray-400'>
-                    Get 100 credits for $10.
+                    Get 30 credits for ₹99.
+                  </p>
+                </div>
+                <div className='grid gap-1'>
+                  <h3 className='text-lg font-bold'>Premium Plan</h3>
+                  <p className='text-sm text-gray-500 dark:text-gray-400'>
+                    Get 100 credits for ₹849.
                   </p>
                 </div>
               </div>
