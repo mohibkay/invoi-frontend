@@ -13,7 +13,7 @@ import { Icons } from "./utils/Icons";
 const Pricing = ({
   checkoutHandler,
 }: {
-  checkoutHandler: (name: string, amount: number) => void;
+  checkoutHandler: (amount: number) => void;
 }) => {
   return (
     <Dialog>
@@ -47,9 +47,7 @@ const Pricing = ({
               <p>Get 30 credits for only ₹99</p>
             </CardContent>
             <CardFooter>
-              <Button onClick={() => checkoutHandler("30 Credits", 99)}>
-                Upgrade
-              </Button>
+              <Button onClick={() => checkoutHandler(99)}>Upgrade</Button>
             </CardFooter>
           </Card>
           <Card>
@@ -61,9 +59,7 @@ const Pricing = ({
               <p>Get 100 credits for only ₹849</p>
             </CardContent>
             <CardFooter>
-              <Button onClick={() => checkoutHandler("100 Credits", 849)}>
-                Upgrade
-              </Button>
+              <Button onClick={() => checkoutHandler(849)}>Upgrade</Button>
             </CardFooter>
           </Card>
         </div>

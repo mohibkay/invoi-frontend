@@ -4,12 +4,17 @@ import { useAppSelector } from "@/redux/hooks";
 import MyAccount from "./MyAccount";
 import Pricing from "./Pricing";
 import axios from "@/api/axios.ts";
+import { useGetUser } from "@/api/user";
+import useRazorpay from "react-razorpay";
 
 const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL;
 const razorpayKey = import.meta.env.VITE_RAZORPAY_KEY;
 
 const Navbar = () => {
+  const { refetch } = useGetUser();
+  const [Razorpay] = useRazorpay();
   const user = useAppSelector((state) => state.user);
+
   const {
     credits = 0,
     avatar = "",
@@ -20,13 +25,10 @@ const Navbar = () => {
   const fullName = `${firstName} ${lastName}`;
   const showPricing = credits <= 5;
 
-  const checkoutHandler = async (name: string, amount: number) => {
+  const checkoutHandler = async (amount: number) => {
     const {
       data: { order },
     } = await axios.post(`${backendUrl}/api/checkout`, { amount });
-    console.log("🐬 ~ checkoutHandler ~ order:", order);
-    order.id;
-    console.log("🐬 ~ checkoutHandler ~ order.id:", order.id);
 
     const options = {
       key: razorpayKey,
@@ -55,6 +57,7 @@ const Navbar = () => {
         );
         console.log("🐬 ~ checkoutHandler ~ result:", result);
         console.log("congratulation emoji");
+        refetch();
       },
       prefill: {
         name: fullName,
@@ -69,7 +72,7 @@ const Navbar = () => {
       },
     };
 
-    const rzp1 = new window.Razorpay(options);
+    const rzp1 = new Razorpay(options);
     rzp1.open();
     /*
     rzp1.on("payment.failed", function (response) {
