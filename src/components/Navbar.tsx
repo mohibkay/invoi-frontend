@@ -65,7 +65,6 @@ const Navbar = () => {
             `${backendUrl}/api/payment-verification`,
             data
           );
-          console.log("🐬 ~ checkoutHandler ~ result:", result);
 
           const amount = order.amount / 100;
           if (result.data.success) {
@@ -146,19 +145,19 @@ const Navbar = () => {
         </div>
       </nav>
       {showPricingSuccess && (
-        <>
-          <PricingSuccess
-            creditsAwarded={creditsAwarded}
-            showPricingSuccess={showPricingSuccess}
-            setShowPricingSuccess={setShowPricingSuccess}
-          />
-          <Confetti
-            width={width}
-            height={height}
-            recycle={false}
-            style={{ zIndex: 99 }}
-          />
-        </>
+        <PricingSuccess
+          creditsAwarded={creditsAwarded}
+          showPricingSuccess={showPricingSuccess}
+          setShowPricingSuccess={setShowPricingSuccess}
+        />
+      )}
+      {!!creditsAwarded && (
+        <Confetti
+          width={width}
+          height={height}
+          recycle={false}
+          style={{ zIndex: 99 }}
+        />
       )}
     </>
   );
