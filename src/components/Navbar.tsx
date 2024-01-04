@@ -9,6 +9,8 @@ import useRazorpay from "react-razorpay";
 import { useState } from "react";
 import PricingSuccess from "./PaymentSuccess";
 import { CreditEnum } from "@/lib/constants";
+import Confetti from "react-confetti";
+import useWindowSize from "react-use/lib/useWindowSize";
 
 const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL;
 const razorpayKey = import.meta.env.VITE_RAZORPAY_KEY;
@@ -16,6 +18,8 @@ const razorpayKey = import.meta.env.VITE_RAZORPAY_KEY;
 const Navbar = () => {
   const { refetch } = useGetUser();
   const [Razorpay] = useRazorpay();
+  const { width, height } = useWindowSize();
+
   const [creditsAwarded, setCreditsAwarded] = useState(0);
   const [showPricingDialog, setShowPricingDialog] = useState(false);
   const [showPricingSuccess, setShowPricingSuccess] = useState(false);
@@ -142,11 +146,19 @@ const Navbar = () => {
         </div>
       </nav>
       {showPricingSuccess && (
-        <PricingSuccess
-          creditsAwarded={creditsAwarded}
-          showPricingSuccess={showPricingSuccess}
-          setShowPricingSuccess={setShowPricingSuccess}
-        />
+        <>
+          <PricingSuccess
+            creditsAwarded={creditsAwarded}
+            showPricingSuccess={showPricingSuccess}
+            setShowPricingSuccess={setShowPricingSuccess}
+          />
+          <Confetti
+            width={width}
+            height={height}
+            recycle={false}
+            style={{ zIndex: 99 }}
+          />
+        </>
       )}
     </>
   );
