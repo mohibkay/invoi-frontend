@@ -136,7 +136,7 @@ const Login = () => {
                 <div className='grid gap-1'>
                   <h3 className='text-lg font-bold'>Premium Plan</h3>
                   <p className='text-sm text-gray-500 dark:text-gray-400'>
-                    Get 100 credits for ₹849.
+                    Get 100 credits for ₹299.
                   </p>
                 </div>
               </div>
