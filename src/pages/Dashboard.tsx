@@ -21,7 +21,7 @@ function Dashboard() {
   const handleLogout = useLogout();
   const isWelfarePage = location.pathname === ROUTES.WELFARE;
   const [invoiceDataArray, setInvoiceDataArray] = useState<Invoice[] | []>([]);
-  const { data: user, refetch, isError } = useGetUser();
+  const { data: user, refetch, isError, isFetching } = useGetUser();
 
   useEffect(() => {
     if (user?.email) {
@@ -55,7 +55,7 @@ function Dashboard() {
 
   return (
     <div className='max-h-100vh overflow-y-hidden'>
-      <Navbar />
+      <Navbar isFetching={isFetching} />
       <main className='mt-6 flex max-w-7xl mx-auto px-4'>
         <div className='min-w-max mr-4 top-52 mt-12'>
           <UploadComponent

@@ -11,12 +11,19 @@ import PricingSuccess from "./PaymentSuccess";
 import { CreditEnum } from "@/lib/constants";
 import Confetti from "react-confetti";
 import useWindowSize from "react-use/lib/useWindowSize";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import InvoiIcon from "../assets/invoi.ico";
 
 const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL;
 const razorpayKey = import.meta.env.VITE_RAZORPAY_KEY;
 
-const Navbar = () => {
+type NavbarProps = {
+  isFetching: boolean;
+};
+
+const Navbar = ({ isFetching }: NavbarProps) => {
+  console.log("🐬 ~ Navbar ~ isFetching:", isFetching);
   const { refetch } = useGetUser();
   const [Razorpay] = useRazorpay();
   const { width, height } = useWindowSize();
@@ -125,7 +132,8 @@ const Navbar = () => {
             Invoi
           </Link>
 
-          {user.user && (
+          {isFetching && <Skeleton width={229.94} height={36} />}
+          {user.user && !isFetching && (
             <div className='flex space-x-6'>
               <p className='flex flex-col'>
                 <span className='text-xl font-medium -mb-0.5'>{credits}</span>
