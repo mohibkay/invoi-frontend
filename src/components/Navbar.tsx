@@ -22,7 +22,7 @@ const Navbar = () => {
 
   const [creditsAwarded, setCreditsAwarded] = useState(0);
   const [showPricingDialog, setShowPricingDialog] = useState(false);
-  const [showPricingSuccess, setShowPricingSuccess] = useState(false);
+  const [showPricingSuccess, setShowPricingSuccess] = useState(true);
   const user = useAppSelector((state) => state.user);
 
   const {
@@ -44,8 +44,8 @@ const Navbar = () => {
       key: razorpayKey,
       amount: order.amount,
       currency: "INR",
-      name: "Invoi App",
-      description: "Test Transaction",
+      name: "Invoi",
+      description: "App Payment",
       image: "public/favicon.ico",
       order_id: order.id,
       handler: async (response: {
