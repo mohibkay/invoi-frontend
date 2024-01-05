@@ -42,7 +42,14 @@ const Pricing = ({
           <Card>
             <CardHeader>
               <CardTitle>Starter</CardTitle>
-              <Badge>5 credits</Badge>
+              <Badge
+                onClick={() => {
+                  checkoutHandler(10);
+                  closePricingDialogWithADelay();
+                }}
+              >
+                5 credits
+              </Badge>
             </CardHeader>
             <CardContent>
               <p>Get started with our free plan.</p>
