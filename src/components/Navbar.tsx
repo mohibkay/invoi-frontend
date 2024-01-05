@@ -11,6 +11,7 @@ import PricingSuccess from "./PaymentSuccess";
 import { CreditEnum } from "@/lib/constants";
 import Confetti from "react-confetti";
 import useWindowSize from "react-use/lib/useWindowSize";
+import InvoiIcon from "../assets/invoi.ico";
 
 const backendUrl = import.meta.env.VITE_BACKEND_BASE_URL;
 const razorpayKey = import.meta.env.VITE_RAZORPAY_KEY;
@@ -46,7 +47,7 @@ const Navbar = () => {
       currency: "INR",
       name: "Invoi",
       description: "App Payment",
-      image: "public/favicon.ico",
+      image: InvoiIcon,
       order_id: order.id,
       handler: async (response: {
         razorpay_payment_id: string;
