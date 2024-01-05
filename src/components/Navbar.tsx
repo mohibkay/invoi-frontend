@@ -22,7 +22,7 @@ const Navbar = () => {
 
   const [creditsAwarded, setCreditsAwarded] = useState(0);
   const [showPricingDialog, setShowPricingDialog] = useState(false);
-  const [showPricingSuccess, setShowPricingSuccess] = useState(true);
+  const [showPricingSuccess, setShowPricingSuccess] = useState(false);
   const user = useAppSelector((state) => state.user);
 
   const {

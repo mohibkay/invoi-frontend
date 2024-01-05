@@ -5,6 +5,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import PartyPopper from "../assets/party-popper.png";
 
 type PricingSuccessProps = {
   creditsAwarded: number;
@@ -22,7 +23,7 @@ const PricingSuccess = ({
       <DialogContent className='sm:max-w-[425px]'>
         <DialogHeader>
           <img
-            src='public/party-popper.png'
+            src={PartyPopper}
             alt='party popper'
             width={100}
             className='mx-auto'
