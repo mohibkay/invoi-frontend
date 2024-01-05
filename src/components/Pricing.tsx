@@ -73,12 +73,12 @@ const Pricing = ({
               <Badge>100 credits</Badge>
             </CardHeader>
             <CardContent>
-              <p>Get 100 credits for only ₹849</p>
+              <p>Get 100 credits for only ₹299</p>
             </CardContent>
             <CardFooter>
               <Button
                 onClick={() => {
-                  checkoutHandler(849);
+                  checkoutHandler(299);
                   closePricingDialogWithADelay();
                 }}
               >
