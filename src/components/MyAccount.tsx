@@ -10,9 +10,10 @@ import { Icons } from "./utils/Icons";
 
 interface MyAccountProps {
   avatar: string;
+  openPricingDialog: () => void;
 }
 
-const MyAccount = ({ avatar }: MyAccountProps) => {
+const MyAccount = ({ avatar, openPricingDialog }: MyAccountProps) => {
   const handleLogout = useLogout();
 
   return (
@@ -26,6 +27,9 @@ const MyAccount = ({ avatar }: MyAccountProps) => {
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
+        <DropdownMenuItem onClick={openPricingDialog}>
+          Buy More Credits
+        </DropdownMenuItem>
         <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

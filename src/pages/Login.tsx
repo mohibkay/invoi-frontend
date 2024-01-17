@@ -1,6 +1,8 @@
 import { baseURL } from "@/api/routes";
 import { useGetUser } from "@/api/user";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
+import { Toaster } from "@/components/ui/toaster";
 import { Icons } from "@/components/utils/Icons";
 import { ROUTES } from "@/lib/routes";
 import { setUser } from "@/redux/features/userSlice";
@@ -13,8 +15,11 @@ const Login = () => {
   const { search } = useLocation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const searchParams = new URLSearchParams(search);
-  const token = searchParams.get("token");
+  const { toast } = useToast();
+
+  const params = new URLSearchParams(search);
+  const token = params.get("token");
+  const unauthorizedUserError = params.get("error") || "";
   const googleAuthUrl = baseURL + import.meta.env.VITE_GOOGLE_AUTH_URL;
 
   if (token) {
@@ -23,8 +28,12 @@ const Login = () => {
 
   const { data: user } = useGetUser();
 
-  const googleAuth = () => {
-    window.open(googleAuthUrl, "_self");
+  const googleAuth = async () => {
+    try {
+      window.open(googleAuthUrl, "_self");
+    } catch (error) {
+      console.error("Google authentication error:", error);
+    }
   };
 
   useEffect(() => {
@@ -34,12 +43,39 @@ const Login = () => {
     }
   }, [dispatch, navigate, user]);
 
+  useEffect(() => {
+    if (!unauthorizedUserError) return;
+    console.log("Unauthorized user error:", unauthorizedUserError);
+    toast({
+      variant: "destructive",
+      title: "Unauthorized User",
+      description: "Please contact the admin to get access.",
+    });
+  }, [toast, unauthorizedUserError]);
+
+  useEffect(() => {
+    if (unauthorizedUserError) {
+      setTimeout(() => {
+        navigate(ROUTES.LOGIN);
+      }, 10);
+    }
+  }, [navigate, unauthorizedUserError]);
+
   return (
     <main className='flex-1'>
       <section className='w-full pt-12 md:pt-24 lg:pt-32'>
         <div className='px-4 md:px-6 space-y-10 xl:space-y-16'>
           <div className='grid max-w-[1300px] mx-auto gap-4 px-4 sm:px-6 md:px-10 md:grid-cols-2 md:gap-16'>
-            <div>
+            <div
+              onClick={() => {
+                console.log("clicked");
+                toast({
+                  variant: "destructive",
+                  title: "Unauthorized User",
+                  description: "Please contact the admin to get access.",
+                });
+              }}
+            >
               <h1 className='lg:leading-tighter text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl xl:text-[3.4rem] 2xl:text-[3.75rem]'>
                 Automated Data Extraction for Invoices
               </h1>
@@ -144,6 +180,7 @@ const Login = () => {
           </div>
         </div>
       </section>
+      <Toaster />
     </main>
   );
 };

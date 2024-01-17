@@ -43,6 +43,10 @@ const Navbar = ({ isFetching }: NavbarProps) => {
   const fullName = `${firstName} ${lastName}`;
   const showPricing = credits <= 5;
 
+  const openPricingDialog = () => {
+    setShowPricingDialog(true);
+  };
+
   const checkoutHandler = async (amount: number) => {
     const {
       data: { order },
@@ -148,7 +152,10 @@ const Navbar = ({ isFetching }: NavbarProps) => {
                   checkoutHandler={checkoutHandler}
                 />
               )}
-              <MyAccount avatar={avatar} />
+              <MyAccount
+                avatar={avatar}
+                openPricingDialog={openPricingDialog}
+              />
             </div>
           )}
         </div>
@@ -160,6 +167,7 @@ const Navbar = ({ isFetching }: NavbarProps) => {
           setShowPricingSuccess={setShowPricingSuccess}
         />
       )}
+
       {!!creditsAwarded && (
         <Confetti
           width={width}
