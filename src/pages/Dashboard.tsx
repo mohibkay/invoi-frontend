@@ -2,24 +2,17 @@ import { useEffect, useState } from "react";
 import InvoiceTable from "@/components/InvoiceTable";
 import ActionButtons from "@/components/ActionButtons";
 import { Toaster } from "@/components/ui/toaster";
-import {
-  downloadGeneralExcel,
-  downloadExcelForWellnessExpense,
-} from "@/lib/utils";
+import { downloadExcelForWellnessExpense } from "@/lib/utils";
 import Navbar from "@/components/Navbar";
 import { useGetUser } from "@/api/user";
 import { useAppDispatch } from "@/redux/hooks";
 import { setUser } from "@/redux/features/userSlice";
-import { useLocation } from "react-router-dom";
-import { ROUTES } from "@/lib/routes";
 import useLogout from "@/hooks/useLogout";
 import UploadComponent from "@/components/DragAndDropUpload";
 
 function Dashboard() {
-  const location = useLocation();
   const dispatch = useAppDispatch();
   const handleLogout = useLogout();
-  const isWelfarePage = location.pathname === ROUTES.WELFARE;
   const [invoiceDataArray, setInvoiceDataArray] = useState<Invoice[] | []>([]);
   const { data: user, refetch, isError, isFetching } = useGetUser();
 
@@ -48,9 +41,7 @@ function Dashboard() {
   };
 
   const downloadExcel = () => {
-    isWelfarePage
-      ? downloadExcelForWellnessExpense(invoiceDataArray)
-      : downloadGeneralExcel(invoiceDataArray);
+    downloadExcelForWellnessExpense(invoiceDataArray);
   };
 
   return (
