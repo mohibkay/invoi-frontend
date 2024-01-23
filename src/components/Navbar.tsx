@@ -23,7 +23,6 @@ type NavbarProps = {
 };
 
 const Navbar = ({ isFetching }: NavbarProps) => {
-  console.log("🐬 ~ Navbar ~ isFetching:", isFetching);
   const { refetch } = useGetUser();
   const [Razorpay] = useRazorpay();
   const { width, height } = useWindowSize();
